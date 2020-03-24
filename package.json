@@ -1,0 +1,20 @@
+{
+  "name": "Proyecto-Integrado",
+  "version": "1.0.0",
+  "description": "Este proyecto es un CRUD, utilizando php + mysql en la parte de servidor y de parte cliente Angular.\r Para obtener los datos se ha utilizado un script de php que hace curls a una página.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/esfraner/Proyecto-Integrado.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/esfraner/Proyecto-Integrado/issues"
+  },
+  "homepage": "https://github.com/esfraner/Proyecto-Integrado#readme"
+}
