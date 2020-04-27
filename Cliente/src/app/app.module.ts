@@ -1,14 +1,17 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
+import { HttpClientModule } from "@angular/common/http";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { PlayerListComponent } from "./player-list/player-list.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { MatToolbarModule } from "@angular/material/toolbar";
+import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MenuNavbarComponent } from "./menu-navbar/menu-navbar.component";
 import { PlayerInformationComponent } from "./player-information/player-information.component";
-
+import { PlayerService } from "./player-list/player.service";
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,10 +22,13 @@ import { PlayerInformationComponent } from "./player-information/player-informat
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     MatCardModule,
+    MatToolbarModule,
+    MatButtonModule,
   ],
-  providers: [],
+  providers: [PlayerService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
