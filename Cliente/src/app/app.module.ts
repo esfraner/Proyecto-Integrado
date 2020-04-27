@@ -6,9 +6,16 @@ import { AppComponent } from "./app.component";
 import { PlayerListComponent } from "./player-list/player-list.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatCardModule } from "@angular/material/card";
+import { MenuNavbarComponent } from "./menu-navbar/menu-navbar.component";
+import { PlayerInformationComponent } from "./player-information/player-information.component";
 
 @NgModule({
-  declarations: [AppComponent, PlayerListComponent],
+  declarations: [
+    AppComponent,
+    PlayerListComponent,
+    MenuNavbarComponent,
+    PlayerInformationComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
