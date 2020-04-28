@@ -1,8 +1,5 @@
 <?php
-
-
 class oConexion {
-
     private $servidor;
     private $baseDatos;
     private $usuario;
