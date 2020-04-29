@@ -1,6 +1,6 @@
-<div *ngFor="let person of people$ | async">
+<div *ngFor="let player of usuarios | async">
   <mat-card>
-    <mat-card-title>{{ person.Indice }}</mat-card-title>
-    <mat-card-content> {{ person.Producto }}</mat-card-content>
+    <mat-card-title>{{ player.id }}</mat-card-title>
+    <mat-card-content> {{ player.name }}</mat-card-content>
   </mat-card>
 </div>

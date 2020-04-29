@@ -1,18 +1,19 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
 import { Player } from "src/models/player";
-@Injectable()
+@Injectable({
+  providedIn: "root",
+})
 export class PlayerService {
-  URL = "http://localhost/api/";
+  URL = "/assets/api/";
   constructor(private http: HttpClient) {}
 
   selectPlayer(idPlayer: number) {
-    return this.http.get(`${this.URL}SelectPLayer.php?idPlayer=${idPlayer}`);
+    return this.http.get(`${this.URL}selectPLayer.php?idPlayer=${idPlayer}`);
   }
 
-  getPlayers(): Observable<Object> {
-    return this.http.get(`${this.URL}GetPlayers.php`);
+  getPlayers() {
+    return this.http.get(`${this.URL}getPlayers.php`);
   }
 
   createPlayer(player: Player) {
@@ -23,12 +24,12 @@ export class PlayerService {
   }
 
   removePlayer(idPlayer: number) {
-    return this.http.get(`${this.URL}RemovePlayer.php?idPlayer=${idPlayer}`);
+    return this.http.get(`${this.URL}removePlayer.php?idPlayer=${idPlayer}`);
   }
 
   updateUser(player: Player) {
     return this.http.post(
-      `${this.URL}UpdatePlayer.php`,
+      `${this.URL}updatePlayer.php`,
       JSON.stringify(player)
     );
   }

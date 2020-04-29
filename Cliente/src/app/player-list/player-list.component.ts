@@ -5,12 +5,15 @@ import { PlayerService } from "./player.service";
   templateUrl: "./player-list.component.html",
   styleUrls: ["./player-list.component.css"],
 })
-export class PlayerListComponent {
-  people$;
-  constructor(private playerService: PlayerService) {
-    this.fetchPeople();
+export class PlayerListComponent implements OnInit {
+  usuarios = null;
+  constructor(private playerService: PlayerService) {}
+  ngOnInit() {
+    this.getPlayers();
   }
-  fetchPeople() {
-    this.people$ = this.playerService.fetchPlayers();
+  getPlayers() {
+    this.playerService
+      .getPlayers()
+      .subscribe((result) => (this.usuarios = result));
   }
 }
