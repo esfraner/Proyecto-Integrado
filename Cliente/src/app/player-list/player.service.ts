@@ -1,19 +1,22 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Player } from "src/models/player";
+import { Observable } from "rxjs";
 @Injectable({
   providedIn: "root",
 })
 export class PlayerService {
-  URL = "/assets/api/";
+  URL = "http://localhost:8000/";
   constructor(private http: HttpClient) {}
 
-  selectPlayer(idPlayer: number) {
-    return this.http.get(`${this.URL}selectPLayer.php?idPlayer=${idPlayer}`);
+  getPlayers(): Observable<Player[]> {
+    return this.http.get<Player[]>(`${this.URL}getPlayers.php`);
   }
 
-  getPlayers() {
-    return this.http.get(`${this.URL}getPlayers.php`);
+  selectPlayer(idPlayer: number): Observable<Player> {
+    return this.http.get<Player>(
+      `${this.URL}selectPLayer.php?idPlayer=${idPlayer}`
+    );
   }
 
   createPlayer(player: Player) {
