@@ -1,10 +1,10 @@
 export class Player {
-  id: number;
-  name: string;
-  birthday: string;
-  age: string;
-  birthPlace: string;
-  birthCountry: string;
-  position: string;
-  photo: string;
+  id: string;
+  nombreCompleto: string;
+  fechaNacimiento: string;
+  edad: string;
+  lugarNacimiento: string;
+  paisNacimiento: string;
+  demarcacion: string;
+  foto: string;
 }
