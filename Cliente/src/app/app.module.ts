@@ -10,6 +10,9 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
+import { MatInputModule } from "@angular/material/input";
+/* import {} from "@angular/material/form-field" */
+
 import { MenuNavbarComponent } from "./menu-navbar/menu-navbar.component";
 import { PlayerInformationComponent } from "./player-information/player-information.component";
 import { PlayerService } from "./player-list/player.service";
@@ -29,6 +32,7 @@ import { PlayerService } from "./player-list/player.service";
     MatCardModule,
     MatToolbarModule,
     MatButtonModule,
+    MatInputModule,
   ],
   providers: [PlayerService],
   bootstrap: [AppComponent],
