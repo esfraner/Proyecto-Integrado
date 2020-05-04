@@ -11,7 +11,7 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatDividerModule } from "@angular/material/divider";
-
+import { MatInputModule } from "@angular/material/input";
 import { MenuNavbarComponent } from "./menu-navbar/menu-navbar.component";
 import { PlayerInformationComponent } from "./player-information/player-information.component";
 import { PlayerService } from "./player-list/player.service";
@@ -32,6 +32,7 @@ import { PlayerService } from "./player-list/player.service";
     MatToolbarModule,
     MatButtonModule,
     MatDividerModule,
+    MatInputModule,
   ],
   providers: [PlayerService],
   bootstrap: [AppComponent],
