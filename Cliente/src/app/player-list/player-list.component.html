@@ -1,18 +1,19 @@
 <br />
-<div *ngFor="let player of players">
+<div *ngFor="let player of players" class="container">
   <mat-card class="example-card">
     <mat-card-header>
       <mat-card-title>{{ player.nombreCompleto }}</mat-card-title>
     </mat-card-header>
     <div class="row">
-      <img
-        class="col s2 player-image"
-        mat-card-image
-        src="data:image/jpeg;base64,{{ player.foto }}"
-        alt="Imagen {{ player.foto }}"
-      />
-
-      <mat-card-content class="col s8">
+      <div class="image-container col-lg-4">
+        <img
+          class="player-image"
+          mat-card-image
+          src="data:image/jpeg;base64,{{ player.foto }}"
+          alt="Imagen {{ player.foto }}"
+        />
+      </div>
+      <mat-card-content class="col-lg-6">
         <p><b>Edad:</b> {{ player.edad }}</p>
         <p><b>Fecha de nacimiento:</b> {{ player.fechaNacimiento }}</p>
         <p><b>Pais:</b> {{ player.paisNacimiento }}</p>
