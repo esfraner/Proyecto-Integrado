@@ -15,7 +15,7 @@ $stmt->execute();
 $stmt->store_result();
 $stmt->bind_result($id, $name, $birthday, $age, $birthPlace, $birthCountry, $position, $photo);
 while ($stmt->fetch()) {
-    $result[] = ["id" => $id, "nombreCompleto" => $name, "fechaNacimiento" => $birthday, "edad" => $age, "lugarNacimiento" => $birthPlace, "paisNacimiento" => $birthPlace, "demarcacion" => $position, "foto" => $photo];
+    $result[] = ["id" => $id, "nombreCompleto" => $name, "fechaNacimiento" => $birthday, "edad" => $age, "lugarNacimiento" => $birthPlace, "paisNacimiento" => $birthCountry, "demarcacion" => $position, "foto" => $photo];
 }
 echo json_encode($result);
 header('Content-Type: application/json');

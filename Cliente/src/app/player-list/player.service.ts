@@ -6,7 +6,7 @@ import { Observable } from "rxjs";
   providedIn: "root",
 })
 export class PlayerService {
-  URL = "http://localhost:8000/";
+  URL = "http://192.168.0.104:8000/";
   constructor(private http: HttpClient) {}
 
   getPlayers(): Observable<Player[]> {

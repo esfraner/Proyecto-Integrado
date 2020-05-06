@@ -11,7 +11,12 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatDividerModule } from "@angular/material/divider";
+import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
+import { MatSelectModule } from "@angular/material/select";
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatNativeDateModule, MAT_DATE_LOCALE } from "@angular/material/core";
+
 import { MenuNavbarComponent } from "./menu-navbar/menu-navbar.component";
 import { PlayerInformationComponent } from "./player-information/player-information.component";
 import { PlayerService } from "./player-list/player.service";
@@ -32,9 +37,13 @@ import { PlayerService } from "./player-list/player.service";
     MatToolbarModule,
     MatButtonModule,
     MatDividerModule,
+    MatFormFieldModule,
     MatInputModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
-  providers: [PlayerService],
+  providers: [PlayerService, { provide: MAT_DATE_LOCALE, useValue: "en-GB" }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
