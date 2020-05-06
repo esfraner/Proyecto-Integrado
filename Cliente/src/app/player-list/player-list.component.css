@@ -1,12 +1,18 @@
 @import "@angular/material/prebuilt-themes/indigo-pink.css";
 
 img {
-  width: 70%;
+  width: 120px;
 }
+
+.image-container {
+  margin-left: 5%;
+  margin-right: 10%;
+}
+
 .player-image {
   margin-left: 3% !important;
-  /* margin-top: 0.5% !important; */
 }
+
 mat-card-header {
   padding: 10px;
 }
