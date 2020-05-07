@@ -1,89 +1,22 @@
-<!-- <form class="example-form">
-  <mat-form-field class="example-full-width">
-    <mat-label>Company (disabled)</mat-label>
-    <input matInput disabled value="Google" />
-  </mat-form-field>
-
-  <table class="example-full-width" cellspacing="0">
-    <tr>
-      <td>
-        <mat-form-field class="example-full-width">
-          <mat-label>First name</mat-label>
-          <input matInput />
-        </mat-form-field>
-      </td>
-      <td>
-        <mat-form-field class="example-full-width">
-          <mat-label>Long Last Name That Will Be Truncated</mat-label>
-          <input matInput />
-        </mat-form-field>
-      </td>
-    </tr>
-  </table>
-
-  <p>
-    <mat-form-field class="example-full-width">
-      <mat-label>Address</mat-label>
-      <textarea matInput placeholder="Ex. 100 Main St">
-1600 Amphitheatre Pkwy</textarea
-      >
-    </mat-form-field>
-    <mat-form-field class="example-full-width">
-      <mat-label>Address 2</mat-label>
-      <textarea matInput></textarea>
-    </mat-form-field>
-  </p>
-
-  <table class="example-full-width" cellspacing="0">
-    <tr>
-      <td>
-        <mat-form-field class="example-full-width">
-          <mat-label>City</mat-label>
-          <input matInput placeholder="Ex. San Francisco" />
-        </mat-form-field>
-      </td>
-      <td>
-        <mat-form-field class="example-full-width">
-          <mat-label>State</mat-label>
-          <input matInput placeholder="Ex. California" />
-        </mat-form-field>
-      </td>
-      <td>
-        <mat-form-field class="example-full-width">
-          <mat-label>Postal Code</mat-label>
-          <input
-            matInput
-            #postalCode
-            maxlength="5"
-            placeholder="Ex. 94105"
-            value="94043"
-          />
-          <mat-hint align="end">{{ postalCode.value.length }} / 5</mat-hint>
-        </mat-form-field>
-      </td>
-    </tr>
-  </table>
-</form>
- -->
 <div id="information" class="container">
   <h1>Información Jugador</h1>
-  <form class="player-form">
+  <form [formGroup]="formPlayerInformation" class="player-form">
     <p>
       <mat-form-field>
         <mat-label>Nombre completo</mat-label>
-        <input matInput placeholder="Ex. Juan" />
+        <input matInput formControlName="name" placeholder="Ex. Juan" />
       </mat-form-field>
     </p>
     <p>
       <mat-form-field>
         <mat-label>Edad</mat-label>
-        <input matInput placeholder="Ex. 25" />
+        <input matInput formControlName="age" placeholder="Ex. 25" />
       </mat-form-field>
     </p>
     <p>
       <mat-form-field>
         <mat-label>Fecha de nacimiento</mat-label>
-        <input matInput [matDatepicker]="picker" />
+        <input matInput formControlName="birthDay" [matDatepicker]="picker" />
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
@@ -91,19 +24,19 @@
     <p>
       <mat-form-field>
         <mat-label>País</mat-label>
-        <input matInput placeholder="Ex. España" />
+        <input matInput formControlName="country" placeholder="Ex. España" />
       </mat-form-field>
     </p>
     <p>
       <mat-form-field>
         <mat-label>Lugar de nacimiento</mat-label>
-        <input matInput placeholder="Ex. Málaga" />
+        <input matInput formControlName="birthPlace" placeholder="Ex. Málaga" />
       </mat-form-field>
     </p>
     <p>
       <mat-form-field>
         <mat-label>Demarcación</mat-label>
-        <mat-select>
+        <mat-select formControlName="position">
           <mat-option>--</mat-option>
           <mat-option
             *ngFor="let demarcacion of demarcaciones"
