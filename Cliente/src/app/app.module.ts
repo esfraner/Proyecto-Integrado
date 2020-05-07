@@ -1,6 +1,6 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 
 import { AppRoutingModule } from "./app-routing.module";
@@ -20,6 +20,7 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from "@angular/material/core";
 import { MenuNavbarComponent } from "./menu-navbar/menu-navbar.component";
 import { PlayerInformationComponent } from "./player-information/player-information.component";
 import { PlayerService } from "./player-list/player.service";
+import { PlayerCardServiceService } from "src/services/player-card-service.service";
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,6 +32,7 @@ import { PlayerService } from "./player-list/player.service";
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
     MatCardModule,
@@ -43,7 +45,11 @@ import { PlayerService } from "./player-list/player.service";
     MatDatepickerModule,
     MatNativeDateModule,
   ],
-  providers: [PlayerService, { provide: MAT_DATE_LOCALE, useValue: "en-GB" }],
+  providers: [
+    PlayerService,
+    { provide: MAT_DATE_LOCALE, useValue: { useUtc: true } },
+    PlayerCardServiceService,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

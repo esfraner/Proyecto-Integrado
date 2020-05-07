@@ -1,22 +1,22 @@
 <div id="information" class="container">
   <h1>Información Jugador</h1>
-  <form class="player-form">
+  <form [formGroup]="formPlayerInformation" class="player-form">
     <p>
       <mat-form-field>
         <mat-label>Nombre completo</mat-label>
-        <input matInput placeholder="Ex. Juan" />
+        <input matInput formControlName="name" placeholder="Ex. Juan" />
       </mat-form-field>
     </p>
     <p>
       <mat-form-field>
         <mat-label>Edad</mat-label>
-        <input matInput placeholder="Ex. 25" />
+        <input matInput formControlName="age" placeholder="Ex. 25" />
       </mat-form-field>
     </p>
     <p>
       <mat-form-field>
         <mat-label>Fecha de nacimiento</mat-label>
-        <input matInput [matDatepicker]="picker" />
+        <input matInput formControlName="birthDay" [matDatepicker]="picker" />
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
@@ -24,19 +24,19 @@
     <p>
       <mat-form-field>
         <mat-label>País</mat-label>
-        <input matInput placeholder="Ex. España" />
+        <input matInput formControlName="country" placeholder="Ex. España" />
       </mat-form-field>
     </p>
     <p>
       <mat-form-field>
         <mat-label>Lugar de nacimiento</mat-label>
-        <input matInput placeholder="Ex. Málaga" />
+        <input matInput formControlName="birthPlace" placeholder="Ex. Málaga" />
       </mat-form-field>
     </p>
     <p>
       <mat-form-field>
         <mat-label>Demarcación</mat-label>
-        <mat-select>
+        <mat-select formControlName="position">
           <mat-option>--</mat-option>
           <mat-option
             *ngFor="let demarcacion of demarcaciones"
