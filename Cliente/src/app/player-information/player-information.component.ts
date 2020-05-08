@@ -21,6 +21,7 @@ export class PlayerInformationComponent implements OnInit {
     private formBuilder: FormBuilder,
     private playerCardService: PlayerCardServiceService
   ) {}
+
   demarcaciones: String[] = [
     "Portero",
     "Defensa",
@@ -33,6 +34,7 @@ export class PlayerInformationComponent implements OnInit {
     "Extremo derecho",
     "Extremo izquierdo",
   ];
+
   ngOnInit(): void {
     this.formPlayerInformation = this.formBuilder.group({
       name: ["", [Validators.required, Validators.minLength(3)]],
