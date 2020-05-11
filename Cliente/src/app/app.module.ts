@@ -16,6 +16,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule, MAT_DATE_LOCALE } from "@angular/material/core";
+import { FileUploadModule } from "ng2-file-upload";
 
 import { MenuNavbarComponent } from "./menu-navbar/menu-navbar.component";
 import { PlayerInformationComponent } from "./player-information/player-information.component";
@@ -44,6 +45,7 @@ import { PlayerCardServiceService } from "src/services/player-card-service.servi
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    FileUploadModule,
   ],
   providers: [
     PlayerService,
