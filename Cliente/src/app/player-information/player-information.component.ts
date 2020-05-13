@@ -114,4 +114,10 @@ export class PlayerInformationComponent implements OnInit {
       this.srcURL = "data:image/jpeg;base64," + data;
     });
   }
+
+  newPlayer() {
+    //To-do: show online create player button
+    this.formPlayerInformation.reset();
+    this.srcURL = "";
+  }
 }

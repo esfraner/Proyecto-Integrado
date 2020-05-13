@@ -1,71 +1,94 @@
-<link
-  href="https://fonts.googleapis.com/icon?family=Material+Icons"
-  rel="stylesheet"
-/>
+<h1>Información Jugador</h1>
 <div id="information" class="container">
-  <h1>Información Jugador</h1>
-  <form [formGroup]="formPlayerInformation" class="player-form">
+  <mat-card class="example-card">
+    <form [formGroup]="formPlayerInformation" class="player-form">
+      <div class="row">
+        <div class="col-6">
+          <button mat-raised-button color="primary" (click)="newPlayer()">
+            Nuevo Jugador
+          </button>
+        </div>
+        <div class="col-6">
+          <button mat-raised-button color="primary" (click)="newPlayer()">
+            Editar Jugador
+          </button>
+        </div>
+      </div>
+      <p>
+        <mat-form-field>
+          <mat-label>ID</mat-label>
+          <input matInput formControlName="id" [readonly]="true" />
+        </mat-form-field>
+      </p>
+      <p>
+        <img id="imgAvatar" [src]="srcURL" />
+      </p>
+      <p>
+        <mat-form-field>
+          <mat-label>Nombre completo</mat-label>
+          <input matInput formControlName="name" placeholder="Ex. Juan" />
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field>
+          <mat-label>Edad</mat-label>
+          <input matInput formControlName="age" placeholder="Ex. 25" />
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field>
+          <mat-label>Fecha de nacimiento</mat-label>
+          <input matInput formControlName="birthDay" [matDatepicker]="picker" />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field>
+          <mat-label>País</mat-label>
+          <input matInput formControlName="country" placeholder="Ex. España" />
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field>
+          <mat-label>Lugar de nacimiento</mat-label>
+          <input
+            matInput
+            formControlName="birthPlace"
+            placeholder="Ex. Málaga"
+          />
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field>
+          <mat-label>Demarcación</mat-label>
+          <mat-select formControlName="position">
+            <mat-option
+              *ngFor="let demarcacion of demarcaciones"
+              [value]="demarcacion"
+            >
+              {{ demarcacion }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </p>
+    </form>
     <p>
-      <mat-form-field>
-        <mat-label>ID</mat-label>
-        <input matInput formControlName="id" [readonly]="true" />
-      </mat-form-field>
+      <input
+        type="file"
+        ng2FileSelect
+        id="inputFileAvatar"
+        [uploader]="uploader"
+        style="display: none;"
+        accept="image/*"
+        (onFileSelected)="onFileSelected($event)"
+      />
+      <label for="inputFileAvatar" class="btn btn-primary"
+        >Seleccionar foto</label
+      >
     </p>
-    <p>
-      <img [src]="srcURL" />
-    </p>
-    <p>
-      <mat-form-field>
-        <mat-label>Nombre completo</mat-label>
-        <input matInput formControlName="name" placeholder="Ex. Juan" />
-      </mat-form-field>
-    </p>
-    <p>
-      <mat-form-field>
-        <mat-label>Edad</mat-label>
-        <input matInput formControlName="age" placeholder="Ex. 25" />
-      </mat-form-field>
-    </p>
-    <p>
-      <mat-form-field>
-        <mat-label>Fecha de nacimiento</mat-label>
-        <input matInput formControlName="birthDay" [matDatepicker]="picker" />
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
-    </p>
-    <p>
-      <mat-form-field>
-        <mat-label>País</mat-label>
-        <input matInput formControlName="country" placeholder="Ex. España" />
-      </mat-form-field>
-    </p>
-    <p>
-      <mat-form-field>
-        <mat-label>Lugar de nacimiento</mat-label>
-        <input matInput formControlName="birthPlace" placeholder="Ex. Málaga" />
-      </mat-form-field>
-    </p>
-    <p>
-      <mat-form-field>
-        <mat-label>Demarcación</mat-label>
-        <mat-select formControlName="position">
-          <mat-option
-            *ngFor="let demarcacion of demarcaciones"
-            [value]="demarcacion"
-          >
-            {{ demarcacion }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </p>
-  </form>
-  <p>
-    <input
-      type="file"
-      ng2FileSelect
-      [uploader]="uploader"
-      (onFileSelected)="onFileSelected($event)"
-    />
-  </p>
+  </mat-card>
 </div>
