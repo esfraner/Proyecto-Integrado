@@ -26,8 +26,10 @@
   <br />
 </div>
 <mat-paginator
-  [length]="100"
+  [length]="totalPlayersCount"
   [pageSize]="10"
-  [pageSizeOptions]="[5, 10, 25, 100]"
+  [pageIndex]="0"
+  [pageSizeOptions]="[5, 10, 25, 50]"
+  (page)="getPaginatorData($event)"
 >
 </mat-paginator>

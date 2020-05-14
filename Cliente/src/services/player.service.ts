@@ -9,8 +9,15 @@ export class PlayerService {
   URL = "http://192.168.0.104:8000/";
   constructor(private http: HttpClient) {}
 
-  getPlayers(): Observable<Player[]> {
-    return this.http.get<Player[]>(`${this.URL}getPlayers.php`);
+  getTotalNumberPlayers(): Observable<number> {
+    return this.http.get<number>(`${this.URL}getTotalNumberPlayers.php`);
+  }
+
+  getPlayers(page: number, playersPerPage: number): Observable<Player[]> {
+    return this.http.post<Player[]>(
+      `${this.URL}test.php`,
+      JSON.stringify({ page, playersPerPage })
+    );
   }
 
   selectPlayer(idPlayer: number): Observable<Player> {
