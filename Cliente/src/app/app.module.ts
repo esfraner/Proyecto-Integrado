@@ -17,10 +17,11 @@ import { MatSelectModule } from "@angular/material/select";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule, MAT_DATE_LOCALE } from "@angular/material/core";
 import { FileUploadModule } from "ng2-file-upload";
+import { MatPaginatorModule } from "@angular/material/paginator";
 
 import { MenuNavbarComponent } from "./menu-navbar/menu-navbar.component";
 import { PlayerInformationComponent } from "./player-information/player-information.component";
-import { PlayerService } from "./player-list/player.service";
+import { PlayerService } from "../services/player.service";
 import { PlayerCardServiceService } from "src/services/player-card-service.service";
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { PlayerCardServiceService } from "src/services/player-card-service.servi
     MatDatepickerModule,
     MatNativeDateModule,
     FileUploadModule,
+    MatPaginatorModule,
   ],
   providers: [
     PlayerService,
