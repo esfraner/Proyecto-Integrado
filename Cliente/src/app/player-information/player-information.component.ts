@@ -8,6 +8,8 @@ import {
   FormControl,
 } from "@angular/forms";
 import { FileUploader } from "ng2-file-upload";
+import { PlayerService } from "src/services/player.service";
+import * as moment from "moment";
 @Component({
   selector: "app-player-information",
   templateUrl: "./player-information.component.html",
@@ -21,10 +23,12 @@ export class PlayerInformationComponent implements OnInit {
     url: "localhost:4200",
     disableMultipart: true,
   });
+  createPlayerOption: boolean = true;
 
   constructor(
     private formBuilder: FormBuilder,
-    private playerCardService: PlayerCardServiceService
+    private playerCardService: PlayerCardServiceService,
+    private playerService: PlayerService
   ) {}
   srcURL = "";
 
@@ -59,7 +63,10 @@ export class PlayerInformationComponent implements OnInit {
           id: this.selectedPlayer.id,
           name: this.selectedPlayer.nombreCompleto,
           age: this.selectedPlayer.edad,
-          birthDay: this.generateDate(this.selectedPlayer.fechaNacimiento),
+          birthDay: moment(
+            this.selectedPlayer.fechaNacimiento,
+            "DD/MM/YYYY"
+          ).toDate(),
           country: this.selectedPlayer.paisNacimiento,
           birthPlace: this.selectedPlayer.lugarNacimiento,
           position: this.selectedPlayer.demarcacion,
@@ -67,14 +74,6 @@ export class PlayerInformationComponent implements OnInit {
         this.srcURL = "data:image/jpeg;base64," + this.selectedPlayer.foto;
       }
     });
-  }
-
-  generateDate(entryDate: string) {
-    const str = entryDate.split("/");
-    const year = parseInt(str[2]);
-    const month = parseInt(str[1]) - 1;
-    const day = parseInt(str[0]);
-    return new Date(year, month, day);
   }
 
   isEmpty(player: Player): boolean {
@@ -117,7 +116,41 @@ export class PlayerInformationComponent implements OnInit {
 
   newPlayer() {
     //To-do: show online create player button
+    this.createPlayerOption = true;
+    let newPlayer = this.formPlayerInformation.value;
+    newPlayer = { ...newPlayer, image: this.srcURL };
     this.formPlayerInformation.reset();
     this.srcURL = "";
+    this.playerService
+      .getLastId()
+      .subscribe((newId: number) =>
+        this.formPlayerInformation.patchValue({ id: newId })
+      );
+    //Todo: newplayer add  photo and change keys to spanish
+  }
+
+  newUpdatePlayer() {
+    this.createPlayerOption = false;
+  }
+
+  updatePlayer() {}
+
+  removePlayer() {
+    console.log(this.formPlayerInformation.value.id);
+    const idPlayerToRemove = this.formPlayerInformation.value.id;
+    this.playerService
+      .removePlayer(idPlayerToRemove)
+      .subscribe((res) => console.log(res));
+  }
+
+  createPlayer() {
+    /* let newPlayer=new Player(this.formPlayerInformation.);
+    this.playerService.createPlayer(player:Player).subscribe((result) => {
+      console.log(result);
+    }); */
+  }
+
+  isCreatePlayerOption() {
+    return this.createPlayerOption;
   }
 }
