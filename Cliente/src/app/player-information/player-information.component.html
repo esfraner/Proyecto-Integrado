@@ -1,19 +1,19 @@
 <h1>Información Jugador</h1>
 <div id="information" class="container">
   <mat-card class="example-card">
-    <form [formGroup]="formPlayerInformation" class="player-form">
-      <div class="row">
-        <div class="col-6">
-          <button mat-raised-button color="primary" (click)="newPlayer()">
-            Nuevo Jugador
-          </button>
-        </div>
-        <div class="col-6">
-          <button mat-raised-button color="primary" (click)="newPlayer()">
-            Editar Jugador
-          </button>
-        </div>
+    <div class="row">
+      <div class="col-6">
+        <button mat-raised-button color="primary" (click)="newPlayer()">
+          Nuevo Jugador
+        </button>
       </div>
+      <div class="col-6">
+        <button mat-raised-button color="primary" (click)="newUpdatePlayer()">
+          Editar Jugador
+        </button>
+      </div>
+    </div>
+    <form [formGroup]="formPlayerInformation" class="player-form">
       <p>
         <mat-form-field>
           <mat-label>ID</mat-label>
@@ -75,6 +75,23 @@
           </mat-select>
         </mat-form-field>
       </p>
+      <div>
+        <button
+          *ngIf="this.isCreatePlayerOption()"
+          type="submit"
+          (click)="createPlayer()"
+        >
+          Crear
+        </button>
+        <div *ngIf="!this.isCreatePlayerOption()">
+          <button type="submit" (click)="updatePlayer()">
+            Update
+          </button>
+          <button type="submit" (click)="removePlayer()">
+            Remove
+          </button>
+        </div>
+      </div>
     </form>
     <p>
       <input
