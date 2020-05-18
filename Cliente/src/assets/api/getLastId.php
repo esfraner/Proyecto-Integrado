@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/config.php';
 
-$oConexion = new oConexion(HOST, BD, USER, PASS );
+$oConexion = new oConexion(HOST, BD, USER, PASS);
 $oConexion->abrir();
 $oConni = $oConexion->obtenerConexion();
 $stmt = $oConni->prepare('SELECT ID from JUGADORES ORDER BY id DESC LIMIT 1;');

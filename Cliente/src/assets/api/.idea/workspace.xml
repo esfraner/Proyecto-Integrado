@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="93d032cf-5357-425d-aec6-10c56951afe0" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../../../package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../../package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../../package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/createPlayer.php" beforeDir="false" afterPath="$PROJECT_DIR$/createPlayer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/getLastId.php" beforeDir="false" afterPath="$PROJECT_DIR$/getLastId.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/getPlayers.php" beforeDir="false" afterPath="$PROJECT_DIR$/getPlayers.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/getTotalNumberPlayers.php" beforeDir="false" afterPath="$PROJECT_DIR$/getTotalNumberPlayers.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/removePlayer.php" beforeDir="false" afterPath="$PROJECT_DIR$/removePlayer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../services/player.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../services/player.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../SERVER/scrapping.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../SERVER/scrapping.class.php" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution>
+      <executable />
+    </execution>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../.." />
+  </component>
+  <component name="ProjectId" id="1c5hcOScVVJAy1tcOtYh9ypeKBG" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="93d032cf-5357-425d-aec6-10c56951afe0" name="Default Changelist" comment="" />
+      <created>1589824440401</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1589824440401</updated>
+      <workItem from="1589824443269" duration="53000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
