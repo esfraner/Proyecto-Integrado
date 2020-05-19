@@ -15,14 +15,14 @@ export class PlayerService {
 
   getPlayers(page: number, playersPerPage: number): Observable<Player[]> {
     return this.http.post<Player[]>(
-      `${this.URL}test.php`,
+      `${this.URL}getPlayers.php`, //cambiar ewl test.php
       JSON.stringify({ page, playersPerPage })
     );
   }
 
   selectPlayer(idPlayer: number): Observable<Player> {
     return this.http.get<Player>(
-      `${this.URL}selectPLayer.php?idPlayer=${idPlayer}`
+      `${this.URL}selectPLayer.php?idPlayer='${idPlayer}'`
     );
   }
 
@@ -42,5 +42,9 @@ export class PlayerService {
       `${this.URL}updatePlayer.php`,
       JSON.stringify(player)
     );
+  }
+
+  getLastId(): Observable<number> {
+    return this.http.get<number>(`${this.URL}getLastId.php`);
   }
 }
