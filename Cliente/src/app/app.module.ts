@@ -15,7 +15,11 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
 import { MatDatepickerModule } from "@angular/material/datepicker";
-import { MatNativeDateModule, MAT_DATE_LOCALE } from "@angular/material/core";
+import {
+  MatNativeDateModule,
+  MAT_DATE_LOCALE,
+  DateAdapter,
+} from "@angular/material/core";
 import { FileUploadModule } from "ng2-file-upload";
 import { MatPaginatorModule } from "@angular/material/paginator";
 
@@ -23,6 +27,7 @@ import { MenuNavbarComponent } from "./menu-navbar/menu-navbar.component";
 import { PlayerInformationComponent } from "./player-information/player-information.component";
 import { PlayerService } from "../services/player.service";
 import { PlayerCardServiceService } from "src/services/player-card-service.service";
+import { SpanishDateProvider } from "src/validators/spanishDateProvider";
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,7 +56,7 @@ import { PlayerCardServiceService } from "src/services/player-card-service.servi
   ],
   providers: [
     PlayerService,
-    { provide: MAT_DATE_LOCALE, useValue: { useUtc: true } },
+    { provide: DateAdapter, useClass: SpanishDateProvider },
     PlayerCardServiceService,
   ],
   bootstrap: [AppComponent],
