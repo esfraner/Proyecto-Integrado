@@ -8,7 +8,12 @@
         </button>
       </div>
       <div class="col-6">
-        <button mat-raised-button color="primary" (click)="newUpdatePlayer()">
+        <button
+          mat-raised-button
+          color="primary"
+          [disabled]="optionUpdatePlayerEnabled"
+          (click)="readyNewUpdatePlayer()"
+        >
           Editar Jugador
         </button>
       </div>

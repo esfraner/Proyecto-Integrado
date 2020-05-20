@@ -25,7 +25,8 @@ export class PlayerInformationComponent implements OnInit {
     url: "localhost:4200",
     disableMultipart: true,
   });
-  createPlayerOption: boolean = true;
+  optionCreatePlayer: boolean = true;
+  optionUpdatePlayerEnabled: boolean = true;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -62,6 +63,7 @@ export class PlayerInformationComponent implements OnInit {
     });
 
     this.playerCardService.selectedPlayer$.subscribe((player) => {
+      this.optionCreatePlayer = false;
       this.selectedPlayer = player;
 
       if (!this.isEmpty(this.selectedPlayer)) {
@@ -78,6 +80,7 @@ export class PlayerInformationComponent implements OnInit {
           demarcacion: this.selectedPlayer.demarcacion,
         });
         this.srcURL = "data:image/jpeg;base64," + this.selectedPlayer.foto;
+        this.optionUpdatePlayerEnabled = false;
       }
     });
   }
@@ -121,7 +124,8 @@ export class PlayerInformationComponent implements OnInit {
   }
 
   readyNewPlayer() {
-    this.createPlayerOption = true;
+    this.optionCreatePlayer = true;
+    this.optionUpdatePlayerEnabled = true;
 
     this.formPlayerInformation.reset();
     this.srcURL = "";
@@ -133,8 +137,8 @@ export class PlayerInformationComponent implements OnInit {
     //Todo: newplayer add photo and change keys to spanish
   }
 
-  newUpdatePlayer() {
-    this.createPlayerOption = false;
+  readyNewUpdatePlayer() {
+    this.optionCreatePlayer = false;
   }
 
   updatePlayer() {}
@@ -161,6 +165,6 @@ export class PlayerInformationComponent implements OnInit {
   }
 
   isCreatePlayerOption() {
-    return this.createPlayerOption;
+    return this.optionCreatePlayer;
   }
 }
