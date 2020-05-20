@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, EventEmitter } from "@angular/core";
 import { Player } from "src/models/player";
+import { IPlayer } from "src/models/IPlayer";
 import { PlayerCardServiceService } from "src/services/player-card-service.service";
 import {
   FormBuilder,
@@ -10,6 +11,7 @@ import {
 import { FileUploader } from "ng2-file-upload";
 import { PlayerService } from "src/services/player.service";
 import * as moment from "moment";
+import { DateValidator } from "src/validators/validator.date";
 @Component({
   selector: "app-player-information",
   templateUrl: "./player-information.component.html",
@@ -48,28 +50,32 @@ export class PlayerInformationComponent implements OnInit {
   ngOnInit(): void {
     this.formPlayerInformation = this.formBuilder.group({
       id: [],
-      name: ["", [Validators.required, Validators.minLength(3)]],
-      age: ["", [Validators.required, Validators.min(40)]],
-      birthDay: ["", [Validators.required]],
-      country: ["", [Validators.required]],
-      birthPlace: ["", [Validators.required]],
-      position: ["", [Validators.required]],
+      nombreCompleto: ["", [Validators.required, Validators.minLength(3)]],
+      edad: ["", [Validators.required, Validators.min(14), Validators.max(70)]],
+      fechaNacimiento: [
+        "",
+        Validators.compose([Validators.required, DateValidator.dateValidator]),
+      ],
+      paisNacimiento: ["", [Validators.required]],
+      lugarNacimiento: ["", [Validators.required]],
+      demarcacion: ["", [Validators.required]],
     });
 
     this.playerCardService.selectedPlayer$.subscribe((player) => {
       this.selectedPlayer = player;
+
       if (!this.isEmpty(this.selectedPlayer)) {
         this.formPlayerInformation.patchValue({
           id: this.selectedPlayer.id,
-          name: this.selectedPlayer.nombreCompleto,
-          age: this.selectedPlayer.edad,
-          birthDay: moment(
+          nombreCompleto: this.selectedPlayer.nombreCompleto,
+          edad: this.selectedPlayer.edad,
+          fechaNacimiento: moment(
             this.selectedPlayer.fechaNacimiento,
             "DD/MM/YYYY"
           ).toDate(),
-          country: this.selectedPlayer.paisNacimiento,
-          birthPlace: this.selectedPlayer.lugarNacimiento,
-          position: this.selectedPlayer.demarcacion,
+          paisNacimiento: this.selectedPlayer.paisNacimiento,
+          lugarNacimiento: this.selectedPlayer.lugarNacimiento,
+          demarcacion: this.selectedPlayer.demarcacion,
         });
         this.srcURL = "data:image/jpeg;base64," + this.selectedPlayer.foto;
       }
@@ -114,11 +120,9 @@ export class PlayerInformationComponent implements OnInit {
     });
   }
 
-  newPlayer() {
-    //To-do: show online create player button
+  readyNewPlayer() {
     this.createPlayerOption = true;
-    let newPlayer = this.formPlayerInformation.value;
-    newPlayer = { ...newPlayer, image: this.srcURL };
+
     this.formPlayerInformation.reset();
     this.srcURL = "";
     this.playerService
@@ -126,7 +130,7 @@ export class PlayerInformationComponent implements OnInit {
       .subscribe((newId: number) =>
         this.formPlayerInformation.patchValue({ id: newId })
       );
-    //Todo: newplayer add  photo and change keys to spanish
+    //Todo: newplayer add photo and change keys to spanish
   }
 
   newUpdatePlayer() {
@@ -144,6 +148,12 @@ export class PlayerInformationComponent implements OnInit {
   }
 
   createPlayer() {
+    let newPlayer: IPlayer = this.formPlayerInformation.value;
+    newPlayer = { ...newPlayer, foto: this.srcURL.split(",")[1] };
+    newPlayer.fechaNacimiento = moment(newPlayer.fechaNacimiento).format(
+      "DD/MM/YYYY"
+    );
+    console.log(newPlayer);
     /* let newPlayer=new Player(this.formPlayerInformation.);
     this.playerService.createPlayer(player:Player).subscribe((result) => {
       console.log(result);
