@@ -16,3 +16,7 @@ img {
 mat-card-header {
   padding: 10px;
 }
+
+mat-card {
+  cursor: pointer;
+}
