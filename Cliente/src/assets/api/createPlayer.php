@@ -9,5 +9,13 @@ $oConni = $oConexion->obtenerConexion();
 
 $stmt = $oConni->prepare("INSERT INTO JUGADORES (ID, `Nombre completo`, `Fecha de nacimiento`," . "Edad, `Lugar de nacimiento`, `País de nacimiento`, Demarcación, Foto) " . "VALUES(?,?,?,?,?,?,?,?);");
 
-$stmt->execute($postdata->id, $postdata->NombreCompleto, $postdata->FechaDeNacimiento, $postdata->edad, $postdata->lugarDeNacimiento, $postdata->paisDeNacimiento, $postdata->Demarcacion, $postdata->foto);
+if($stmt->execute([$postdata->id, $postdata->nombreCompleto, $postdata->fechaNacimiento,
+$postdata->edad, $postdata->lugarNacimiento, $postdata->paisNacimiento,
+ $postdata->demarcacion, $postdata->foto])){
+  echo(true);
+}
+else{
+  echo(false);
+}
+
 

@@ -15,7 +15,7 @@ export class PlayerService {
 
   getPlayers(page: number, playersPerPage: number): Observable<Player[]> {
     return this.http.post<Player[]>(
-      `${this.URL}getPlayers.php`, //cambiar ewl test.php
+      `${this.URL}getPlayers.php`,
       JSON.stringify({ page, playersPerPage })
     );
   }
@@ -26,15 +26,17 @@ export class PlayerService {
     );
   }
 
-  createPlayer(player: Player) {
-    return this.http.post(
+  createPlayer(player: Player): Observable<boolean> {
+    return this.http.post<boolean>(
       `${this.URL}CreatePlayer.php`,
       JSON.stringify(player)
     );
   }
 
   removePlayer(idPlayer: number) {
-    return this.http.get(`${this.URL}removePlayer.php?idPlayer=${idPlayer}`);
+    return this.http.get<Player>(
+      `${this.URL}removePlayer.php?idPlayer=${idPlayer}`
+    );
   }
 
   updateUser(player: Player) {

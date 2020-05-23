@@ -1,20 +1,10 @@
-<h1>Información Jugador</h1>
 <div id="information" class="container">
+  <h1>{{ showCurrentAction() }}</h1>
   <mat-card class="example-card">
     <div class="row">
       <div class="col-6">
         <button mat-raised-button color="primary" (click)="readyNewPlayer()">
           Nuevo Jugador
-        </button>
-      </div>
-      <div class="col-6">
-        <button
-          mat-raised-button
-          color="primary"
-          [disabled]="optionUpdatePlayerEnabled"
-          (click)="readyNewUpdatePlayer()"
-        >
-          Editar Jugador
         </button>
       </div>
     </div>
@@ -26,7 +16,7 @@
         </mat-form-field>
       </p>
       <p>
-        <img id="imgAvatar" [src]="srcURL" />
+        <img id="imgAvatar" [src]="base64Image" />
       </p>
       <p>
         <mat-form-field>
@@ -97,32 +87,42 @@
           *ngIf="this.isCreatePlayerOption()"
           type="submit"
           (click)="createPlayer()"
+          [disabled]="!this.formPlayerInformation.valid"
         >
           Crear
         </button>
         <div *ngIf="!this.isCreatePlayerOption()">
-          <button type="submit" (click)="updatePlayer()">
+          <button
+            type="submit"
+            (click)="updatePlayer()"
+            [disabled]="!this.formPlayerInformation.valid"
+          >
             Update
           </button>
-          <button type="submit" (click)="removePlayer()">
+          <button
+            type="submit"
+            (click)="removePlayer()"
+            [disabled]="!this.formPlayerInformation.valid"
+          >
             Remove
           </button>
         </div>
       </div>
+      <p>
+        <input
+          type="file"
+          ng2FileSelect
+          id="inputFileAvatar"
+          [uploader]="uploader"
+          style="display: none;"
+          accept="image/*"
+          (onFileSelected)="onFileSelected($event)"
+        />
+        <input type="hidden" name="fileHidden" formControlName="foto" />
+        <label for="inputFileAvatar" class="btn btn-primary"
+          >Seleccionar foto</label
+        >
+      </p>
     </form>
-    <p>
-      <input
-        type="file"
-        ng2FileSelect
-        id="inputFileAvatar"
-        [uploader]="uploader"
-        style="display: none;"
-        accept="image/*"
-        (onFileSelected)="onFileSelected($event)"
-      />
-      <label for="inputFileAvatar" class="btn btn-primary"
-        >Seleccionar foto</label
-      >
-    </p>
   </mat-card>
 </div>

@@ -26,14 +26,14 @@ export class PlayerInformationComponent implements OnInit {
     disableMultipart: true,
   });
   optionCreatePlayer: boolean = true;
-  optionUpdatePlayerEnabled: boolean = true;
+  image: string;
 
   constructor(
     private formBuilder: FormBuilder,
     private playerCardService: PlayerCardServiceService,
     private playerService: PlayerService
   ) {}
-  srcURL = "";
+  base64Image = "";
 
   demarcaciones: String[] = [
     "Portero",
@@ -60,10 +60,10 @@ export class PlayerInformationComponent implements OnInit {
       paisNacimiento: ["", [Validators.required]],
       lugarNacimiento: ["", [Validators.required]],
       demarcacion: ["", [Validators.required]],
+      foto: ["", [Validators.required]],
     });
 
     this.playerCardService.selectedPlayer$.subscribe((player) => {
-      this.optionCreatePlayer = false;
       this.selectedPlayer = player;
 
       if (!this.isEmpty(this.selectedPlayer)) {
@@ -78,9 +78,10 @@ export class PlayerInformationComponent implements OnInit {
           paisNacimiento: this.selectedPlayer.paisNacimiento,
           lugarNacimiento: this.selectedPlayer.lugarNacimiento,
           demarcacion: this.selectedPlayer.demarcacion,
+          foto: this.selectedPlayer.foto,
         });
-        this.srcURL = "data:image/jpeg;base64," + this.selectedPlayer.foto;
-        this.optionUpdatePlayerEnabled = false;
+        this.base64Image = "data:image/jpeg;base64," + this.selectedPlayer.foto;
+        this.optionCreatePlayer = false;
       }
     });
   }
@@ -117,24 +118,22 @@ export class PlayerInformationComponent implements OnInit {
     const file: File = event[0];
 
     this.readBase64(file).then((data) => {
-      console.log(data);
       data = data.split(",")[1];
-      this.srcURL = "data:image/jpeg;base64," + data;
+      this.base64Image = "data:image/jpeg;base64," + data;
+      this.formPlayerInformation.controls["foto"].setValue(file ? data : "");
     });
   }
 
   readyNewPlayer() {
     this.optionCreatePlayer = true;
-    this.optionUpdatePlayerEnabled = true;
 
     this.formPlayerInformation.reset();
-    this.srcURL = "";
+    this.base64Image = "";
     this.playerService
       .getLastId()
       .subscribe((newId: number) =>
         this.formPlayerInformation.patchValue({ id: newId })
       );
-    //Todo: newplayer add photo and change keys to spanish
   }
 
   readyNewUpdatePlayer() {
@@ -144,7 +143,6 @@ export class PlayerInformationComponent implements OnInit {
   updatePlayer() {}
 
   removePlayer() {
-    console.log(this.formPlayerInformation.value.id);
     const idPlayerToRemove = this.formPlayerInformation.value.id;
     this.playerService
       .removePlayer(idPlayerToRemove)
@@ -153,18 +151,26 @@ export class PlayerInformationComponent implements OnInit {
 
   createPlayer() {
     let newPlayer: IPlayer = this.formPlayerInformation.value;
-    newPlayer = { ...newPlayer, foto: this.srcURL.split(",")[1] };
+    newPlayer = { ...newPlayer, foto: this.base64Image.split(",")[1] };
     newPlayer.fechaNacimiento = moment(newPlayer.fechaNacimiento).format(
       "DD/MM/YYYY"
     );
     console.log(newPlayer);
-    /* let newPlayer=new Player(this.formPlayerInformation.);
-    this.playerService.createPlayer(player:Player).subscribe((result) => {
-      console.log(result);
-    }); */
+
+    this.playerService
+      .createPlayer(newPlayer)
+      .subscribe((response: boolean) => {
+        console.log(response);
+      });
   }
 
   isCreatePlayerOption() {
     return this.optionCreatePlayer;
+  }
+
+  showCurrentAction() {
+    return this.optionCreatePlayer == true
+      ? "Creando Jugador"
+      : "Editando Jugador";
   }
 }
