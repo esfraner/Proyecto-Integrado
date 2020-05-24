@@ -83,6 +83,7 @@ export class PlayerInformationComponent implements OnInit {
         this.base64Image = "data:image/jpeg;base64," + this.selectedPlayer.foto;
         this.optionCreatePlayer = false;
       }
+      this.showLastIdInForm();
     });
   }
 
@@ -129,6 +130,10 @@ export class PlayerInformationComponent implements OnInit {
 
     this.formPlayerInformation.reset();
     this.base64Image = "";
+    this.showLastIdInForm();
+  }
+
+  showLastIdInForm() {
     this.playerService
       .getLastId()
       .subscribe((newId: number) =>
