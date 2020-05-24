@@ -7,7 +7,7 @@ import { ObserversModule } from "@angular/cdk/observers";
   providedIn: "root",
 })
 export class PlayerService {
-  URL = "http://192.168.0.104:8000/";
+  URL = "http://192.168.0.105:8000/";
   constructor(private http: HttpClient) {}
 
   getTotalNumberPlayers(): Observable<number> {
