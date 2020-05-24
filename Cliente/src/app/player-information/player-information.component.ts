@@ -140,7 +140,20 @@ export class PlayerInformationComponent implements OnInit {
     this.optionCreatePlayer = false;
   }
 
-  updatePlayer() {}
+  updatePlayer() {
+    let newPlayer: IPlayer = this.formPlayerInformation.value;
+    newPlayer = { ...newPlayer, foto: this.base64Image.split(",")[1] };
+    newPlayer.fechaNacimiento = moment(newPlayer.fechaNacimiento).format(
+      "DD/MM/YYYY"
+    );
+    console.log(newPlayer);
+
+    this.playerService
+      .updatePlayer(newPlayer)
+      .subscribe((response: boolean) => {
+        console.log(response);
+      });
+  }
 
   removePlayer() {
     const idPlayerToRemove = this.formPlayerInformation.value.id;

@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Player } from "src/models/player";
 import { Observable } from "rxjs";
+import { ObserversModule } from "@angular/cdk/observers";
 @Injectable({
   providedIn: "root",
 })
@@ -39,8 +40,8 @@ export class PlayerService {
     );
   }
 
-  updateUser(player: Player) {
-    return this.http.post(
+  updatePlayer(player: Player): Observable<boolean> {
+    return this.http.post<boolean>(
       `${this.URL}updatePlayer.php`,
       JSON.stringify(player)
     );
