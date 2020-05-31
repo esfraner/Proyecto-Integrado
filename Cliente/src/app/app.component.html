@@ -25,11 +25,23 @@
 />
 <app-menu-navbar></app-menu-navbar>
 <div class="row">
-  <app-player-list class="col-5"></app-player-list>
+  <app-player-list class="col-5" [players]="players$ | async"></app-player-list>
   <mat-divider
     vertical
     style="height: 50rem; width: 10px; position: sticky;"
     class="col-1"
   ></mat-divider>
-  <app-player-information class="col-5"></app-player-information>
+  <app-player-information
+    class="col-5"
+    (eventClicked)="childEventClicked($event)"
+  ></app-player-information>
 </div>
+<mat-paginator
+  class="col-7"
+  [length]="totalPlayersCount$ | async"
+  [pageSize]="currentPlayersPerPage"
+  [pageIndex]="index"
+  [pageSizeOptions]="[5, 10, 25, 50]"
+  (page)="getPaginatorData($event)"
+>
+</mat-paginator>

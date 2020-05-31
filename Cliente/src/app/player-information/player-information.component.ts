@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter } from "@angular/core";
+import { Component, OnInit, Input, EventEmitter, Output } from "@angular/core";
 import { Player } from "src/models/player";
 import { IPlayer } from "src/models/IPlayer";
 import { PlayerCardServiceService } from "src/services/player-card-service.service";
@@ -18,6 +18,8 @@ import { DateValidator } from "src/validators/validator.date";
   styleUrls: ["./player-information.component.css"],
 })
 export class PlayerInformationComponent implements OnInit {
+  @Output() eventClicked = new EventEmitter<{ texto: string }>();
+
   formPlayerInformation: FormGroup;
   selectedPlayer: Player;
   testImage: string;
@@ -85,6 +87,10 @@ export class PlayerInformationComponent implements OnInit {
       }
       this.showLastIdInForm();
     });
+  }
+
+  reloadPlayers(event: Event, texto: string): void {
+    this.eventClicked.emit({ texto });
   }
 
   isEmpty(player: Player): boolean {
@@ -162,9 +168,11 @@ export class PlayerInformationComponent implements OnInit {
 
   removePlayer() {
     const idPlayerToRemove = this.formPlayerInformation.value.id;
+    console.log(idPlayerToRemove);
     this.playerService
       .removePlayer(idPlayerToRemove)
       .subscribe((res) => console.log(res));
+    this.reloadPlayers(event, "hoola");
   }
 
   createPlayer() {
