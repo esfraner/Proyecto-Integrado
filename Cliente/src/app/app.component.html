@@ -25,7 +25,11 @@
 />
 <app-menu-navbar></app-menu-navbar>
 <div class="row">
-  <app-player-list class="col-5" [players]="players$ | async"></app-player-list>
+  <app-player-list
+    class="col-5"
+    [players]="players$ | async"
+    (cardClicked)="getPlayerClicked($event)"
+  ></app-player-list>
   <mat-divider
     vertical
     style="height: 50rem; width: 10px; position: sticky;"
@@ -33,6 +37,7 @@
   ></mat-divider>
   <app-player-information
     class="col-5"
+    [selectedPlayer]="selectedPlayer"
     (eventClicked)="childEventClicked($event)"
   ></app-player-information>
 </div>

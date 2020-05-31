@@ -3,6 +3,14 @@ import { PlayerService } from "src/services/player.service";
 import { Player } from "src/models/player";
 import { Observable } from "rxjs/internal/Observable";
 import { PageEvent } from "@angular/material/paginator";
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormControl,
+} from "@angular/forms";
+import { DateValidator } from "src/validators/validator.date";
+import * as moment from "moment";
 
 @Component({
   selector: "app-root",
@@ -11,11 +19,15 @@ import { PageEvent } from "@angular/material/paginator";
 })
 export class AppComponent {
   constructor(private playerService: PlayerService) {}
-  totalPlayersCount$: Observable<number>;
   currentPage: number = 0;
   currentPlayersPerPage: number = 10;
   index: number = 0;
+  optionCreatePlayer: boolean = true;
+
+  totalPlayersCount$: Observable<number>;
   players$: Observable<Player[]>;
+  formPlayerInformation: FormGroup;
+  selectedPlayer: Player;
 
   ngOnInit(): void {
     this.getTotalPlayersNumber();
@@ -37,7 +49,17 @@ export class AppComponent {
   }
 
   childEventClicked($event) {
-    console.log($event);
-    this.getPlayers(this.currentPage, this.currentPlayersPerPage);
+    this.players$ = this.playerService.getPlayers(
+      this.currentPage,
+      this.currentPlayersPerPage
+    );
+    //this.getPlayers(this.currentPage, this.currentPlayersPerPage);
+    this.players$.subscribe((newId: any) => {
+      console.log(newId);
+    });
+  }
+
+  getPlayerClicked(player: Player) {
+    this.selectedPlayer = player;
   }
 }

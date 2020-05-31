@@ -1,4 +1,11 @@
-import { Component, OnInit, Input, EventEmitter, Output } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  Input,
+  EventEmitter,
+  Output,
+  SimpleChanges,
+} from "@angular/core";
 import { Player } from "src/models/player";
 import { IPlayer } from "src/models/IPlayer";
 import { PlayerCardServiceService } from "src/services/player-card-service.service";
@@ -19,16 +26,18 @@ import { DateValidator } from "src/validators/validator.date";
 })
 export class PlayerInformationComponent implements OnInit {
   @Output() eventClicked = new EventEmitter<{ texto: string }>();
+  @Output() readyNewPlayer$ = new EventEmitter<boolean>();
+  @Input()
+  optionCreatePlayer: boolean;
 
   formPlayerInformation: FormGroup;
-  selectedPlayer: Player;
+
   testImage: string;
+  avatarSrc: string;
   public uploader: FileUploader = new FileUploader({
     url: "localhost:4200",
     disableMultipart: true,
   });
-  optionCreatePlayer: boolean = true;
-  image: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -64,33 +73,26 @@ export class PlayerInformationComponent implements OnInit {
       demarcacion: ["", [Validators.required]],
       foto: ["", [Validators.required]],
     });
-
-    this.playerCardService.selectedPlayer$.subscribe((player) => {
-      this.selectedPlayer = player;
-
-      if (!this.isEmpty(this.selectedPlayer)) {
-        this.formPlayerInformation.patchValue({
-          id: this.selectedPlayer.id,
-          nombreCompleto: this.selectedPlayer.nombreCompleto,
-          edad: this.selectedPlayer.edad,
-          fechaNacimiento: moment(
-            this.selectedPlayer.fechaNacimiento,
-            "DD/MM/YYYY"
-          ).toDate(),
-          paisNacimiento: this.selectedPlayer.paisNacimiento,
-          lugarNacimiento: this.selectedPlayer.lugarNacimiento,
-          demarcacion: this.selectedPlayer.demarcacion,
-          foto: this.selectedPlayer.foto,
-        });
-        this.base64Image = "data:image/jpeg;base64," + this.selectedPlayer.foto;
-        this.optionCreatePlayer = false;
-      }
-      this.showLastIdInForm();
-    });
   }
 
-  reloadPlayers(event: Event, texto: string): void {
-    this.eventClicked.emit({ texto });
+  @Input()
+  set selectedPlayer(currentPlayerSelected) {
+    this.optionCreatePlayer = true;
+    if (currentPlayerSelected) {
+      this.formPlayerInformation.patchValue({
+        ...currentPlayerSelected,
+        fechaNacimiento: moment(
+          currentPlayerSelected.fechaNacimiento,
+          "DD/MM/YYYY"
+        ).toDate(),
+      });
+      this.avatarSrc = `data:image/jpeg;base64,${this.formPlayerInformation.controls["foto"].value}`;
+      this.optionCreatePlayer = false;
+    }
+  }
+
+  reloadPlayers(event: Event): void {
+    this.eventClicked.emit();
   }
 
   isEmpty(player: Player): boolean {
@@ -126,17 +128,24 @@ export class PlayerInformationComponent implements OnInit {
 
     this.readBase64(file).then((data) => {
       data = data.split(",")[1];
-      this.base64Image = "data:image/jpeg;base64," + data;
+      this.avatarSrc = "data:image/jpeg;base64," + data;
       this.formPlayerInformation.controls["foto"].setValue(file ? data : "");
     });
   }
 
   readyNewPlayer() {
     this.optionCreatePlayer = true;
-
-    this.formPlayerInformation.reset();
-    this.base64Image = "";
+    this.avatarSrc = "";
+    this.resetForm(this.formPlayerInformation);
     this.showLastIdInForm();
+  }
+
+  resetForm(form: FormGroup) {
+    form.reset();
+
+    Object.keys(form.controls).forEach((key) => {
+      form.get(key).setErrors(null);
+    });
   }
 
   showLastIdInForm() {
@@ -147,37 +156,37 @@ export class PlayerInformationComponent implements OnInit {
       );
   }
 
-  readyNewUpdatePlayer() {
-    this.optionCreatePlayer = false;
-  }
-
   updatePlayer() {
     let newPlayer: IPlayer = this.formPlayerInformation.value;
-    newPlayer = { ...newPlayer, foto: this.base64Image.split(",")[1] };
-    newPlayer.fechaNacimiento = moment(newPlayer.fechaNacimiento).format(
-      "DD/MM/YYYY"
-    );
-    console.log(newPlayer);
+    newPlayer = {
+      ...newPlayer,
+      foto: this.avatarSrc.split(",")[1],
+      fechaNacimiento: moment(newPlayer.fechaNacimiento).format("DD/MM/YYYY"),
+    };
 
     this.playerService
       .updatePlayer(newPlayer)
       .subscribe((response: boolean) => {
-        console.log(response);
+        if (response) {
+          this.readyNewPlayer();
+          this.reloadPlayers(event);
+        }
       });
   }
 
   removePlayer() {
     const idPlayerToRemove = this.formPlayerInformation.value.id;
-    console.log(idPlayerToRemove);
-    this.playerService
-      .removePlayer(idPlayerToRemove)
-      .subscribe((res) => console.log(res));
-    this.reloadPlayers(event, "hoola");
+    this.playerService.removePlayer(idPlayerToRemove).subscribe((res) => {
+      if (res) {
+        this.readyNewPlayer();
+        this.reloadPlayers(event);
+      }
+    });
   }
 
   createPlayer() {
     let newPlayer: IPlayer = this.formPlayerInformation.value;
-    newPlayer = { ...newPlayer, foto: this.base64Image.split(",")[1] };
+    newPlayer = { ...newPlayer, foto: this.avatarSrc.split(",")[1] };
     newPlayer.fechaNacimiento = moment(newPlayer.fechaNacimiento).format(
       "DD/MM/YYYY"
     );
@@ -188,15 +197,11 @@ export class PlayerInformationComponent implements OnInit {
       .subscribe((response: boolean) => {
         console.log(response);
       });
-  }
-
-  isCreatePlayerOption() {
-    return this.optionCreatePlayer;
+    this.readyNewPlayer();
+    this.reloadPlayers(event);
   }
 
   showCurrentAction() {
-    return this.optionCreatePlayer == true
-      ? "Creando Jugador"
-      : "Editando Jugador";
+    return this.optionCreatePlayer ? "Creando Jugador" : "Editando Jugador";
   }
 }

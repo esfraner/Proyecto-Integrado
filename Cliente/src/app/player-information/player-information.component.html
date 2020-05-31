@@ -15,9 +15,11 @@
           <input matInput formControlName="id" [readonly]="true" />
         </mat-form-field>
       </p>
-      <p>
-        <img id="imgAvatar" [src]="base64Image" />
-      </p>
+      <div *ngIf="avatarSrc">
+        <p>
+          <img id="imgAvatar" [src]="avatarSrc" />
+        </p>
+      </div>
       <p>
         <mat-form-field>
           <mat-label>Nombre completo</mat-label>
@@ -84,14 +86,14 @@
       </p>
       <div>
         <button
-          *ngIf="this.isCreatePlayerOption()"
+          *ngIf="optionCreatePlayer"
           type="submit"
           (click)="createPlayer()"
           [disabled]="!this.formPlayerInformation.valid"
         >
           Crear
         </button>
-        <div *ngIf="!this.isCreatePlayerOption()">
+        <div *ngIf="!optionCreatePlayer">
           <button
             type="submit"
             (click)="updatePlayer()"

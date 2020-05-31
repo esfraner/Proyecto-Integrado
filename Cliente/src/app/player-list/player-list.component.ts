@@ -1,9 +1,14 @@
-import { Component, OnInit, Input } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  SimpleChanges,
+} from "@angular/core";
 import { PlayerService } from "../../services/player.service";
 import { Player } from "src/models/player";
 import { Observable } from "rxjs";
-import { PlayerCardServiceService } from "src/services/player-card-service.service";
-import { PageEvent } from "@angular/material/paginator";
 @Component({
   selector: "app-player-list",
   templateUrl: "./player-list.component.html",
@@ -13,17 +18,15 @@ export class PlayerListComponent implements OnInit {
   editMessage: string;
   selectedPlayer: Player;
 
+  @Output() cardClicked = new EventEmitter<Player>();
+
   @Input()
   players: Player[];
 
-  constructor(private playerCardService: PlayerCardServiceService) {}
-  ngOnInit() {
-    this.playerCardService.selectedPlayer$.subscribe(
-      (player) => (this.selectedPlayer = player)
-    );
-  }
+  constructor() {}
+  ngOnInit() {}
 
-  showInfoPlayer(player) {
-    this.playerCardService.changeMessage((this.selectedPlayer = player));
+  emitClickedPlayerData(player: Player): void {
+    this.cardClicked.emit(player);
   }
 }
