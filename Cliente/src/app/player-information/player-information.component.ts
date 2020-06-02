@@ -25,7 +25,9 @@ import { DateValidator } from "src/validators/validator.date";
   styleUrls: ["./player-information.component.css"],
 })
 export class PlayerInformationComponent implements OnInit {
-  @Output() eventClicked = new EventEmitter<{ texto: string }>();
+  @Output() eventUpdatePlayer = new EventEmitter<Player>();
+  @Output() eventRemovePlayer = new EventEmitter<Player>();
+  @Output() eventCreatePlayer = new EventEmitter<Player>();
   @Output() readyNewPlayer$ = new EventEmitter<boolean>();
   @Input()
   optionCreatePlayer: boolean;
@@ -91,9 +93,9 @@ export class PlayerInformationComponent implements OnInit {
     }
   }
 
-  reloadPlayers(event: Event): void {
+  /* reloadPlayers(event: Event): void {
     this.eventClicked.emit();
-  }
+  } */
 
   isEmpty(player: Player): boolean {
     return JSON.stringify(player) == JSON.stringify({});
@@ -157,48 +159,38 @@ export class PlayerInformationComponent implements OnInit {
   }
 
   updatePlayer() {
-    let newPlayer: IPlayer = this.formPlayerInformation.value;
+    let newPlayer: Player = this.formPlayerInformation.value;
     newPlayer = {
       ...newPlayer,
       foto: this.avatarSrc.split(",")[1],
       fechaNacimiento: moment(newPlayer.fechaNacimiento).format("DD/MM/YYYY"),
     };
 
-    this.playerService
-      .updatePlayer(newPlayer)
-      .subscribe((response: boolean) => {
-        if (response) {
-          this.readyNewPlayer();
-          this.reloadPlayers(event);
-        }
-      });
+    this.eventUpdatePlayer.emit(newPlayer);
+    this.readyNewPlayer();
   }
 
   removePlayer() {
-    const idPlayerToRemove = this.formPlayerInformation.value.id;
-    this.playerService.removePlayer(idPlayerToRemove).subscribe((res) => {
-      if (res) {
-        this.readyNewPlayer();
-        this.reloadPlayers(event);
-      }
-    });
+    // const idPlayerToRemove: number = this.formPlayerInformation.value.id;
+    let newPlayer: Player = this.formPlayerInformation.value;
+    newPlayer = {
+      ...newPlayer,
+      foto: this.avatarSrc.split(",")[1],
+      fechaNacimiento: moment(newPlayer.fechaNacimiento).format("DD/MM/YYYY"),
+    };
+    this.eventRemovePlayer.emit(newPlayer);
+    this.readyNewPlayer();
   }
 
   createPlayer() {
-    let newPlayer: IPlayer = this.formPlayerInformation.value;
-    newPlayer = { ...newPlayer, foto: this.avatarSrc.split(",")[1] };
-    newPlayer.fechaNacimiento = moment(newPlayer.fechaNacimiento).format(
-      "DD/MM/YYYY"
-    );
-    console.log(newPlayer);
-
-    this.playerService
-      .createPlayer(newPlayer)
-      .subscribe((response: boolean) => {
-        console.log(response);
-      });
+    let newPlayer: Player = this.formPlayerInformation.value;
+    newPlayer = {
+      ...newPlayer,
+      foto: this.avatarSrc.split(",")[1],
+      fechaNacimiento: moment(newPlayer.fechaNacimiento).format("DD/MM/YYYY"),
+    };
+    this.eventCreatePlayer.emit(newPlayer);
     this.readyNewPlayer();
-    this.reloadPlayers(event);
   }
 
   showCurrentAction() {
