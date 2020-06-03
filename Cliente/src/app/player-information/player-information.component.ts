@@ -119,7 +119,6 @@ export class PlayerInformationComponent implements OnInit {
         },
         false
       );
-
       reader.readAsDataURL(file);
     });
     return future;
@@ -130,6 +129,7 @@ export class PlayerInformationComponent implements OnInit {
 
     this.readBase64(file).then((data) => {
       data = data.split(",")[1];
+      console.log(typeof data);
       this.avatarSrc = "data:image/jpeg;base64," + data;
       this.formPlayerInformation.controls["foto"].setValue(file ? data : "");
     });
@@ -138,16 +138,8 @@ export class PlayerInformationComponent implements OnInit {
   readyNewPlayer() {
     this.optionCreatePlayer = true;
     this.avatarSrc = "";
-    this.resetForm(this.formPlayerInformation);
+    this.formPlayerInformation.reset();
     this.showLastIdInForm();
-  }
-
-  resetForm(form: FormGroup) {
-    form.reset();
-
-    Object.keys(form.controls).forEach((key) => {
-      form.get(key).setErrors(null);
-    });
   }
 
   showLastIdInForm() {
