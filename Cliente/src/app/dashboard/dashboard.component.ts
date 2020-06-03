@@ -2,7 +2,6 @@ import { Component, Output, Input } from "@angular/core";
 import { PlayerService } from "src/services/player.service";
 import { Player } from "src/models/player";
 import { Observable } from "rxjs/internal/Observable";
-import { map, shareReplay, share } from "rxjs/operators";
 import { PageEvent } from "@angular/material/paginator";
 import { FormGroup } from "@angular/forms";
 
@@ -31,10 +30,6 @@ export class DashboardComponent {
   arrPlayers$: Player[];
 
   ngOnInit(): void {}
-
-  /*  getCurrentPlayers() {
-    return this.arrPlayers$.slice(this.minIndex, this.maxIndex);
-  } */
 
   eventPage(event: PageEvent) {
     this.pageSize = event.pageSize;
