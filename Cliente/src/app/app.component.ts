@@ -1,8 +1,5 @@
 import { Component, Output } from "@angular/core";
-import { Observable } from "rxjs";
-import { Player } from "src/models/player";
 import { PlayerService } from "src/services/player.service";
-import { shareReplay } from "rxjs/operators";
 
 @Component({
   selector: "app-root",
@@ -11,11 +8,15 @@ import { shareReplay } from "rxjs/operators";
 })
 export class AppComponent {
   @Output()
-  players$: Observable<Player[]>;
+  team = "Betis";
+  @Output()
+  players$ = this.playerService.getPlayers(this.team);
 
   constructor(private playerService: PlayerService) {}
 
-  ngOnInit(): void {
-    this.players$ = this.playerService.getPlayers().pipe(shareReplay(1));
+  ngOnInit(): void {}
+
+  selectTeam(team: string) {
+    this.players$ = this.playerService.getPlayers(team);
   }
 }

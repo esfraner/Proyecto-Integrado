@@ -1,3 +1,4 @@
+<app-menu-navbar (eventGetPlayers)="selectTeam($event)"></app-menu-navbar>
 <app-dashboard
   *ngIf="players$ | async as players"
   [arrPlayers$]="players"

@@ -23,18 +23,12 @@
   href="http://fonts.googleapis.com/icon?family=Material+Icons"
   rel="stylesheet"
 />
-<app-menu-navbar></app-menu-navbar>
 <div class="row">
   <app-player-list
     class="col-5"
     [players]="arrPlayers$.slice(this.minIndex, this.maxIndex)"
     (cardClicked)="getPlayerClicked($event)"
   ></app-player-list>
-  <mat-divider
-    vertical
-    style="height: 50rem; width: 10px; position: sticky;"
-    class="col-1"
-  ></mat-divider>
   <app-player-information
     class="col-5"
     [selectedPlayer]="selectedPlayer"
