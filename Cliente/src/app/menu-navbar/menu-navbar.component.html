@@ -8,8 +8,13 @@
   </mat-toolbar-row>
 
   <mat-toolbar-row>
-    <span style="font-size: 12px;">
-      SimpleCRM helps you easily manage your contacts</span
-    >
+    <span class="col-6">Equipos</span>
+    <span class="col-4">
+      <span *ngFor="let team of teams" class="col-12">
+        <button class="shield" (click)="selectTeam(team.teamName)">
+          <img [src]="team.src" style="width: 40px;" />
+        </button>
+      </span>
+    </span>
   </mat-toolbar-row>
 </mat-toolbar>
