@@ -7,7 +7,7 @@ $postdata = json_decode(file_get_contents("php://input"));
 $oConexion = new oConexionPDO(["servidor" => HOST, "baseDatos" => BD, "usuario" => USER, "clave" => PASS]);
 $oConni = $oConexion->obtenerConexion();
 
-$stmt = $oConni->prepare("UPDATE JUGADORES SET `Nombre completo`=?, `Fecha de nacimiento`=?, Edad=?,"
+$stmt = $oConni->prepare("UPDATE PLAYERS SET `Nombre completo`=?, `Fecha de nacimiento`=?, Edad=?,"
 ." `Lugar de nacimiento`=?, `País de nacimiento`=?, Demarcación=?, Foto=? WHERE ID=?;");
 
 if($stmt->execute([ $postdata->nombreCompleto, $postdata->fechaNacimiento,

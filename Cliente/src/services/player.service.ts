@@ -11,8 +11,10 @@ export class PlayerService {
   URL = "http://192.168.0.105:8000/";
   constructor(private http: HttpClient) {}
 
-  getPlayers(): Observable<Player[]> {
-    return this.http.get<Player[]>(`${this.URL}getAllPlayers.php`);
+  getPlayers(team: string): Observable<Player[]> {
+    return this.http.get<Player[]>(
+      `${this.URL}getAllPlayers.php?teamName=${team}`
+    );
   }
 
   updatePlayer(player: Player): Observable<boolean> {

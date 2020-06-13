@@ -9,6 +9,6 @@ ini_set('display_errors', 'on');
 ini_set('max_execution_time', 10);
 
 define("HOST", "franer.team");
-define("BD", "PI2");
+define("BD", "PLAYERS");
 define("USER", "remoto");
 define("PASS", "malagaserade2Bproximamente");

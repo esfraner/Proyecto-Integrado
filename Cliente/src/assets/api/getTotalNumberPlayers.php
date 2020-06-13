@@ -4,7 +4,7 @@ require_once __DIR__ . '/config.php';
 $oConexion = new oConexion(HOST, BD, USER, PASS);
 $oConexion->abrir();
 $oConni = $oConexion->obtenerConexion();
-$stmt = $oConni->prepare('SELECT COUNT(*) AS TOTAL FROM JUGADORES');
+$stmt = $oConni->prepare('SELECT COUNT(*) AS TOTAL FROM PLAYERS');
 $stmt->execute();
 $stmt->store_result();
 $stmt->bind_result($total);
