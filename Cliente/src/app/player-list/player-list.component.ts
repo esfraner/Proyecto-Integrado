@@ -6,9 +6,7 @@ import {
   EventEmitter,
   SimpleChanges,
 } from "@angular/core";
-import { PlayerService } from "../../services/player.service";
 import { Player } from "src/models/player";
-import { Observable } from "rxjs";
 @Component({
   selector: "app-player-list",
   templateUrl: "./player-list.component.html",
