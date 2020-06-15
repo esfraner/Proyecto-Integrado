@@ -36,6 +36,7 @@ import { PlayerInformationComponent } from "./player-information/player-informat
 import { PlayerService } from "../services/player.service";
 import { PlayerCardServiceService } from "src/services/player-card-service.service";
 import { DashboardComponent } from "./dashboard/dashboard.component";
+import { NgxSpinnerModule } from "ngx-spinner";
 /* import { SpanishDateProvider } from "src/validators/spanishDateProvider"; */
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { DashboardComponent } from "./dashboard/dashboard.component";
     MatNativeDateModule,
     FileUploadModule,
     MatPaginatorModule,
+    NgxSpinnerModule,
   ],
   providers: [
     PlayerService,
