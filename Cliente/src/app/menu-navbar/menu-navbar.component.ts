@@ -10,13 +10,28 @@ import { IPlayer } from "src/models/IPlayer";
 })
 export class MenuNavbarComponent implements OnInit {
   teams: Array<ITeams>;
-  @Output() eventGetPlayers = new EventEmitter<string>();
+  @Output() onSelectTeam = new EventEmitter<string>();
+  @Output() onSortbyAge = new EventEmitter<string>();
+  @Output() onSortbyName = new EventEmitter<string>();
+  @Output() onSortbyId = new EventEmitter<string>();
   constructor() {
     this.teams = TEAMS;
   }
 
   selectTeam(teamName: string) {
-    this.eventGetPlayers.emit(teamName);
+    this.onSelectTeam.emit(teamName);
+  }
+
+  sortByName() {
+    this.onSortbyName.emit();
+  }
+
+  sortByAge() {
+    this.onSortbyAge.emit();
+  }
+
+  sortById() {
+    this.onSortbyId.emit();
   }
 
   ngOnInit(): void {}

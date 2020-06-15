@@ -1,20 +1,67 @@
-<mat-toolbar color="primary">
+<link
+  href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"
+  rel="stylesheet"
+/>
+<mat-toolbar>
   <mat-toolbar-row>
-    <h1>PLAYERS</h1>
-    <span class="menu-spacer"></span>
-    <div>
-      <a mat-button [routerLink]="'/accounts'"> Accounts </a>
+    <div class="col-12 ee">
+      <div class="title-container">
+        <h1>LIGA SANTANDER</h1>
+      </div>
     </div>
   </mat-toolbar-row>
 
-  <mat-toolbar-row>
-    <span class="col-6">Equipos</span>
-    <span class="col-4">
-      <span *ngFor="let team of teams" class="col-12">
-        <button class="shield" (click)="selectTeam(team.teamName)">
-          <img [src]="team.src" style="width: 40px;" />
-        </button>
-      </span>
-    </span>
+  <mat-toolbar-row class="primary-color">
+    <div class="container">
+      <div class="row">
+        <div class="col-2 container-input-search">
+          <input
+            type="text"
+            class="col-12 form-control input-search"
+            placeholder="Buscar..."
+          />
+        </div>
+        <div class="col-10 property-buttons">
+          <button
+            mat-raised-button
+            color="light"
+            class="col-2 sort-button"
+            (click)="sortById()"
+          >
+            Ordenar por ID
+          </button>
+          <span class="offset-1"></span>
+          <button
+            mat-raised-button
+            color="light"
+            class="col-2 sort-button"
+            (click)="sortByName()"
+          >
+            Ordenar por nombre
+          </button>
+          <span class="offset-1"></span>
+          <button
+            mat-raised-button
+            color="light"
+            class="col-2 sort-button"
+            (click)="sortByAge()"
+          >
+            Ordenar por edad
+          </button>
+        </div>
+      </div>
+    </div>
+  </mat-toolbar-row>
+
+  <mat-toolbar-row class="shields-toolbar">
+    <div class="container shields-container">
+      <div>
+        <span *ngFor="let team of teams">
+          <button class="shield" (click)="selectTeam(team.teamName)">
+            <img [src]="team.src" />
+          </button>
+        </span>
+      </div>
+    </div>
   </mat-toolbar-row>
 </mat-toolbar>

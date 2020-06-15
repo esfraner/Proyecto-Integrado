@@ -2,3 +2,44 @@
   background: none;
   border: none;
 }
+.primary-color {
+  background-color: #3f51b5;
+}
+
+.input-search {
+  height: 1.5rem;
+}
+
+.sort-button {
+  font-size: 0.7rem;
+}
+
+h1 {
+  font-family: "Bebas Neue", cursive;
+  font-size: 3rem;
+}
+
+.property-buttons {
+  text-align: right;
+}
+
+.container-input-search {
+  margin-top: 0.8%;
+}
+
+.shields-toolbar {
+  height: unset;
+  background-color: white;
+}
+
+img {
+  width: 1.6rem;
+}
+
+.shields-container {
+  text-align: center;
+}
+
+.title-container {
+  text-align: center;
+}
