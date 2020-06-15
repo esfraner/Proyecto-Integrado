@@ -17,11 +17,7 @@ export class DashboardComponent {
   index: number = 0;
   minIndex: number = 0;
   maxIndex: number = 10;
-  optionCreatePlayer: boolean = true;
-
-  totalPlayersCount$: Observable<number>;
-  players$: Observable<Player[]>;
-  showedPlayers: Player[];
+  /*   optionCreatePlayer: boolean = true; */
 
   formPlayerInformation: FormGroup;
   selectedPlayer: Player;
