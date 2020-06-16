@@ -24,7 +24,7 @@ export class PlayerListComponent implements OnInit {
   constructor() {}
   ngOnInit() {}
 
-  emitClickedPlayerData(player: Player): void {
+  onClickedPlayerData(player: Player): void {
     this.cardClicked.emit(player);
   }
 }

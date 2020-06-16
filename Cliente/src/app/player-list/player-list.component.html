@@ -1,6 +1,6 @@
 <br />
 <div *ngFor="let player of players" class="container">
-  <mat-card class="example-card" (click)="emitClickedPlayerData(player)">
+  <mat-card class="example-card" (click)="onClickedPlayerData(player)">
     <mat-card-header>
       <mat-card-title>{{ player.nombreCompleto }}</mat-card-title>
     </mat-card-header>
@@ -19,6 +19,7 @@
         <p><b>Pais:</b> {{ player.paisNacimiento }}</p>
         <p><b>Lugar de nacimiento:</b> {{ player.lugarNacimiento }}</p>
         <p><b>Posición:</b> {{ player.demarcacion }}</p>
+        <p><b>Equipo:</b> {{ player.equipo }}</p>
       </mat-card-content>
     </div>
   </mat-card>
