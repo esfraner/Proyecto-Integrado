@@ -2,6 +2,31 @@
   position: sticky;
   top: 0;
 }
+
 #imgAvatar {
-  width: 100px;
+  width: 55%;
+  position: absolute;
+  left: 50px;
+}
+
+.hidden-input {
+  display: none;
+}
+
+input {
+  font-size: 0.77rem;
+}
+
+mat-select {
+  font-size: 0.77rem;
+}
+
+.button-file {
+  font-size: 0.8rem;
+  background-color: #3f51b5;
+  border-color: #3f51b5;
+}
+
+label a {
+  color: #3f51b5;
 }

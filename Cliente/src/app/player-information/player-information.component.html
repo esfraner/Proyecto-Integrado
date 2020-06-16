@@ -1,130 +1,160 @@
 <div id="information" class="container">
-  <h1>{{ showCurrentAction() }}</h1>
   <mat-card class="example-card">
     <div class="row">
-      <div class="col-6">
-        <button mat-raised-button color="primary" (click)="readyNewPlayer()">
-          Nuevo Jugador
-        </button>
-      </div>
-    </div>
-    <form [formGroup]="formPlayerInformation" class="player-form">
-      <p>
-        <mat-form-field>
-          <mat-label>ID</mat-label>
-          <input matInput formControlName="id" [readonly]="true" />
-        </mat-form-field>
-      </p>
-      <div>
-        <p>
-          <img id="imgAvatar" [src]="avatarSrc" />
-        </p>
-      </div>
-      <p>
-        <mat-form-field>
-          <mat-label>Nombre completo</mat-label>
-          <input
-            matInput
-            formControlName="nombreCompleto"
-            placeholder="Ex. Juan"
-          />
-        </mat-form-field>
-      </p>
-      <p>
-        <mat-form-field>
-          <mat-label>Edad</mat-label>
-          <input matInput formControlName="edad" placeholder="Ex. 25" />
-        </mat-form-field>
-      </p>
-      <p>
-        <mat-form-field>
-          <mat-label>Fecha de nacimiento</mat-label>
-          <input
-            matInput
-            formControlName="fechaNacimiento"
-            [matDatepicker]="picker"
-          />
-          <mat-datepicker-toggle
-            matSuffix
-            [for]="picker"
-          ></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-      </p>
-      <p>
-        <mat-form-field>
-          <mat-label>País</mat-label>
-          <input
-            matInput
-            formControlName="paisNacimiento"
-            placeholder="Ex. España"
-          />
-        </mat-form-field>
-      </p>
-      <p>
-        <mat-form-field>
-          <mat-label>Lugar de nacimiento</mat-label>
-          <input
-            matInput
-            formControlName="lugarNacimiento"
-            placeholder="Ex. Málaga"
-          />
-        </mat-form-field>
-      </p>
-      <p>
-        <mat-form-field>
-          <mat-label>Demarcación</mat-label>
-          <mat-select formControlName="demarcacion">
-            <mat-option
-              *ngFor="let demarcacion of demarcaciones"
-              [value]="demarcacion"
-            >
-              {{ demarcacion }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </p>
-      <div>
-        <button
-          *ngIf="optionCreatePlayer"
-          type="submit"
-          (click)="createPlayer()"
-          [disabled]="!this.formPlayerInformation.valid"
-        >
-          Crear
-        </button>
-        <div *ngIf="!optionCreatePlayer">
-          <button
-            type="submit"
-            (click)="updatePlayer()"
-            [disabled]="!this.formPlayerInformation.valid"
+      <div class="col-4">
+        <div class="text-left">
+          <a mat-button color="disabled" target="_blank">
+            {{ showCurrentAction() }}</a
           >
-            Update
-          </button>
-          <button
-            type="submit"
-            (click)="removePlayer()"
-            [disabled]="!this.formPlayerInformation.valid"
-          >
-            Remove
+        </div>
+      </div>
+      <div class="col-8">
+        <div class="text-left">
+          <button mat-raised-button color="primary" (click)="readyNewPlayer()">
+            Nuevo Jugador
           </button>
         </div>
       </div>
-      <p>
-        <input
-          type="file"
-          ng2FileSelect
-          id="inputFileAvatar"
-          [uploader]="uploader"
-          style="display: none;"
-          accept="image/*"
-          (onFileSelected)="onFileSelected($event)"
-        />
-        <input type="hidden" name="fileHidden" formControlName="foto" />
-        <label for="inputFileAvatar" class="btn btn-primary"
-          >Seleccionar foto</label
-        >
-      </p>
+    </div>
+    <br />
+    <form [formGroup]="formPlayerInformation" class="player-form">
+      <div class="container">
+        <div class="row">
+          <div class="col-5">
+            <mat-form-field class="col-10">
+              <mat-label>ID</mat-label>
+              <input matInput formControlName="id" [readonly]="true" />
+            </mat-form-field>
+          </div>
+          <div class="offset-2 col-5 text-right">
+            <input type="hidden" name="fileHidden" formControlName="foto" />
+            <img id="imgAvatar" [src]="avatarSrc" />
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="col-12">
+          <mat-form-field>
+            <mat-label>Nombre completo</mat-label>
+            <input
+              matInput
+              formControlName="nombreCompleto"
+              placeholder="Ex. Juan"
+            />
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Edad</mat-label>
+            <input matInput formControlName="edad" placeholder="Ex. 25" />
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Fecha de nacimiento</mat-label>
+            <input
+              matInput
+              formControlName="fechaNacimiento"
+              [matDatepicker]="picker"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>País</mat-label>
+            <input
+              matInput
+              formControlName="paisNacimiento"
+              placeholder="Ex. España"
+            />
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Lugar de nacimiento</mat-label>
+            <input
+              matInput
+              formControlName="lugarNacimiento"
+              placeholder="Ex. Málaga"
+            />
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Equipo</mat-label>
+            <input matInput formControlName="equipo" placeholder="Betis" />
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Demarcación</mat-label>
+            <mat-select formControlName="demarcacion">
+              <mat-option
+                *ngFor="let demarcacion of demarcaciones"
+                [value]="demarcacion"
+              >
+                {{ demarcacion }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="container">
+        <div class="text-center">
+          <input
+            class="hidden-input"
+            type="file"
+            ng2FileSelect
+            id="inputFileAvatar"
+            [uploader]="uploader"
+            accept="image/*"
+            (onFileSelected)="onFileSelected($event)"
+          />
+          <label for="inputFileAvatar"
+            ><a mat-button target="_blank"> Seleccionar foto</a></label
+          >
+        </div>
+      </div>
+      <div class="container">
+        <div class="text-center">
+          <button
+            mat-raised-button
+            color="primary"
+            *ngIf="optionCreatePlayer"
+            type="submit"
+            (click)="createPlayer()"
+            [disabled]="!formPlayerInformation.valid"
+          >
+            Crear
+          </button>
+        </div>
+        <div *ngIf="!optionCreatePlayer">
+          <div class="row">
+            <div class="col-6 text-center">
+              <button
+                mat-raised-button
+                color="primary"
+                type="submit"
+                (click)="updatePlayer()"
+                [disabled]="!formPlayerInformation.valid"
+              >
+                Update
+              </button>
+            </div>
+            <div class="col-6 text-center">
+              <button
+                mat-raised-button
+                color="primary"
+                type="submit"
+                (click)="removePlayer()"
+                [disabled]="!formPlayerInformation.valid"
+              >
+                Remove
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </form>
   </mat-card>
 </div>
