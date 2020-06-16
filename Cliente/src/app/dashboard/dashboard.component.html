@@ -1,12 +1,12 @@
 <div class="container">
   <div class="row">
     <app-player-list
-      class="col-8"
-      [players]="arrPlayers$.slice(this.minIndex, this.maxIndex)"
+      class="col-7"
+      [players]="arrPlayers$.slice(minIndex, maxIndex)"
       (cardClicked)="getPlayerClicked($event)"
     ></app-player-list>
     <app-player-information
-      class="col-4"
+      class="col-5"
       [selectedPlayer]="selectedPlayer"
       (eventCreatePlayer)="eventCreatePlayer($event)"
       (eventUpdatePlayer)="eventUpdatePlayer($event)"
