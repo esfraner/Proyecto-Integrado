@@ -30,7 +30,7 @@
   type="timer"
   [fullScreen]="false"
 ></ngx-spinner>
-<app-menu-navbar
+<app-menu-teams
   (onSelectTeam)="selectTeam($event)"
   (onSortbyId)="
     isAscendingId = !isAscendingId; sortPlayersByProperty('id', isAscendingId)
@@ -43,7 +43,7 @@
     isAscendingAge = !isAscendingAge;
     sortPlayersByProperty('edad', isAscendingAge)
   "
-></app-menu-navbar>
+></app-menu-teams>
 <app-dashboard
   *ngIf="players$ | async as players"
   [arrPlayers$]="players"
