@@ -9,9 +9,9 @@ $oConni = $oConexion->obtenerConexion();
 $stmt = $oConni->prepare("SELECT * FROM PLAYERS WHERE Equipo='$team'");
 $stmt->execute();
 $stmt->store_result();
-$stmt->bind_result($id, $name, $birthday, $age, $birthPlace, $birthCountry, $position, $photo,$Equipo);
+$stmt->bind_result($id, $name, $birthday, $age, $birthPlace, $birthCountry, $position, $photo,$equipo);
 while ($stmt->fetch()) {
-  $result[] = ["id" => $id, "nombreCompleto" => $name, "fechaNacimiento" => $birthday, "edad" => $age, "lugarNacimiento" => $birthPlace, "paisNacimiento" => $birthCountry, "demarcacion" => $position, "foto" => $photo];
+  $result[] = ["id" => $id, "nombreCompleto" => $name, "fechaNacimiento" => $birthday, "edad" => $age, "lugarNacimiento" => $birthPlace, "paisNacimiento" => $birthCountry, "demarcacion" => $position, "foto" => $photo,"equipo"=>$team];
 }
 echo json_encode($result);
 $stmt->close();

@@ -8,11 +8,11 @@ $oConexion = new oConexionPDO(["servidor" => HOST, "baseDatos" => BD, "usuario" 
 $oConni = $oConexion->obtenerConexion();
 
 $stmt = $oConni->prepare("UPDATE PLAYERS SET `Nombre completo`=?, `Fecha de nacimiento`=?, Edad=?,"
-." `Lugar de nacimiento`=?, `País de nacimiento`=?, Demarcación=?, Foto=? WHERE ID=?;");
+." `Lugar de nacimiento`=?, `País de nacimiento`=?, Demarcación=?, Foto=?, Equipo=? WHERE ID=?;");
 
 if($stmt->execute([ $postdata->nombreCompleto, $postdata->fechaNacimiento,
 $postdata->edad, $postdata->lugarNacimiento, $postdata->paisNacimiento,
- $postdata->demarcacion, $postdata->foto,$postdata->id])){
+ $postdata->demarcacion, $postdata->foto,$postdata->equipo,$postdata->id])){
   echo(true);
 }
 else{
