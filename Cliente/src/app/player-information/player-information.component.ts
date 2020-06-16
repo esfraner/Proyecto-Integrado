@@ -8,7 +8,6 @@ import {
 } from "@angular/core";
 import { Player } from "src/models/player";
 import { IPlayer } from "src/models/IPlayer";
-import { PlayerCardServiceService } from "src/services/player-card-service.service";
 import {
   FormBuilder,
   FormGroup,
@@ -43,7 +42,6 @@ export class PlayerInformationComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private playerCardService: PlayerCardServiceService,
     private playerService: PlayerService
   ) {}
   base64Image = "";
@@ -62,6 +60,7 @@ export class PlayerInformationComponent implements OnInit {
   ];
 
   ngOnInit(): void {
+    this.showLastIdInForm();
     this.formPlayerInformation = this.formBuilder.group({
       id: [],
       nombreCompleto: ["", [Validators.required, Validators.minLength(3)]],
@@ -74,6 +73,7 @@ export class PlayerInformationComponent implements OnInit {
       lugarNacimiento: ["", [Validators.required]],
       demarcacion: ["", [Validators.required]],
       foto: ["", [Validators.required]],
+      equipo: ["", [Validators.required]],
     });
   }
 
@@ -91,14 +91,6 @@ export class PlayerInformationComponent implements OnInit {
       this.avatarSrc = `data:image/jpeg;base64,${this.formPlayerInformation.controls["foto"].value}`;
       this.optionCreatePlayer = false;
     }
-  }
-
-  /* reloadPlayers(event: Event): void {
-    this.eventClicked.emit();
-  } */
-
-  isEmpty(player: Player): boolean {
-    return JSON.stringify(player) == JSON.stringify({});
   }
 
   readBase64(file): Promise<any> {
@@ -127,11 +119,10 @@ export class PlayerInformationComponent implements OnInit {
   public onFileSelected(event: EventEmitter<File[]>) {
     const file: File = event[0];
 
-    this.readBase64(file).then((data) => {
-      data = data.split(",")[1];
-      console.log(typeof data);
-      this.avatarSrc = "data:image/jpeg;base64," + data;
-      this.formPlayerInformation.controls["foto"].setValue(file ? data : "");
+    this.readBase64(file).then((photo: string) => {
+      const base64 = photo.split(",")[1];
+      this.avatarSrc = "data:image/jpeg;base64," + base64;
+      this.formPlayerInformation.controls["foto"].setValue(file ? base64 : "");
     });
   }
 
@@ -151,41 +142,48 @@ export class PlayerInformationComponent implements OnInit {
   }
 
   updatePlayer() {
-    let newPlayer: Player = this.formPlayerInformation.value;
-    newPlayer = {
-      ...newPlayer,
+    const playerFormData = this.formPlayerInformation.value;
+    const newPlayer = new Player({
+      ...playerFormData,
       foto: this.avatarSrc.split(",")[1],
-      fechaNacimiento: moment(newPlayer.fechaNacimiento).format("DD/MM/YYYY"),
-    };
+      fechaNacimiento: moment(playerFormData.fechaNacimiento).format(
+        "DD/MM/YYYY"
+      ),
+    });
 
     this.eventUpdatePlayer.emit(newPlayer);
     this.readyNewPlayer();
   }
 
   removePlayer() {
-    // const idPlayerToRemove: number = this.formPlayerInformation.value.id;
-    let newPlayer: Player = this.formPlayerInformation.value;
-    newPlayer = {
-      ...newPlayer,
+    const playerFormData = this.formPlayerInformation.value;
+    const newPlayer = new Player({
+      ...playerFormData,
       foto: this.avatarSrc.split(",")[1],
-      fechaNacimiento: moment(newPlayer.fechaNacimiento).format("DD/MM/YYYY"),
-    };
+      fechaNacimiento: moment(playerFormData.fechaNacimiento).format(
+        "DD/MM/YYYY"
+      ),
+    });
+
     this.eventRemovePlayer.emit(newPlayer);
     this.readyNewPlayer();
   }
 
   createPlayer() {
-    let newPlayer: Player = this.formPlayerInformation.value;
-    newPlayer = {
-      ...newPlayer,
+    const playerFormData = this.formPlayerInformation.value;
+    const newPlayer = new Player({
+      ...playerFormData,
       foto: this.avatarSrc.split(",")[1],
-      fechaNacimiento: moment(newPlayer.fechaNacimiento).format("DD/MM/YYYY"),
-    };
+      fechaNacimiento: moment(playerFormData.fechaNacimiento).format(
+        "DD/MM/YYYY"
+      ),
+    });
+
     this.eventCreatePlayer.emit(newPlayer);
     this.readyNewPlayer();
   }
 
   showCurrentAction() {
-    return this.optionCreatePlayer ? "Creando Jugador" : "Editando Jugador";
+    return this.optionCreatePlayer ? "Creando" : "Editando";
   }
 }
