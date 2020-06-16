@@ -31,10 +31,9 @@ import {
 import { FileUploadModule } from "ng2-file-upload";
 import { MatPaginatorModule } from "@angular/material/paginator";
 
-import { MenuNavbarComponent } from "./menu-navbar/menu-navbar.component";
+import { MenuTeamsComponent } from "./menu-teams/menu-teams.component";
 import { PlayerInformationComponent } from "./player-information/player-information.component";
 import { PlayerService } from "../services/player.service";
-import { PlayerCardServiceService } from "src/services/player-card-service.service";
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { NgxSpinnerModule } from "ngx-spinner";
 /* import { SpanishDateProvider } from "src/validators/spanishDateProvider"; */
@@ -42,7 +41,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
   declarations: [
     AppComponent,
     PlayerListComponent,
-    MenuNavbarComponent,
+    MenuTeamsComponent,
     PlayerInformationComponent,
     DashboardComponent,
   ],
@@ -68,7 +67,6 @@ import { NgxSpinnerModule } from "ngx-spinner";
   ],
   providers: [
     PlayerService,
-    PlayerCardServiceService,
     { provide: MAT_DATE_LOCALE, useValue: "es_ES" },
     {
       provide: DateAdapter,
