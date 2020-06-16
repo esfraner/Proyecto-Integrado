@@ -1,7 +1,7 @@
 import { Component, Output } from "@angular/core";
 import { PlayerService } from "src/services/player.service";
 import { NgxSpinnerService } from "ngx-spinner";
-import { mergeMap, map } from "rxjs/operators";
+import { map } from "rxjs/operators";
 import { Player } from "src/models/player";
 
 @Component({
@@ -10,6 +10,7 @@ import { Player } from "src/models/player";
   styleUrls: ["./app.component.css"],
 })
 export class AppComponent {
+  title: "Liga Santander";
   @Output()
   team = "Betis";
   @Output()
@@ -48,7 +49,7 @@ export class AppComponent {
     }, 950);
   }
 
-  sortPlayersByProperty(property, isAscendent) {
+  sortPlayersByProperty(property: string, isAscendent: boolean) {
     this.players$ = this.players$.pipe(
       map((players: Player[]) => {
         return players.sort((a, b) =>
@@ -60,11 +61,29 @@ export class AppComponent {
     );
   }
 
-  ascendentSorting(a, b, property) {
-    return a[property] < b[property] ? -1 : 1;
+  ascendentSorting(a: Player, b: Player, property: string): number {
+    if (property === "nombreCompleto") {
+      return this.normalizeStringAccent(a[property]) <
+        this.normalizeStringAccent(b[property])
+        ? -1
+        : 1;
+    } else {
+      return a[property] < b[property] ? -1 : 1;
+    }
   }
 
-  descendentSorting(a, b, property) {
-    return a[property] > b[property] ? -1 : 1;
+  descendentSorting(a: Player, b: Player, property: string): number {
+    if (property === "nombreCompleto") {
+      return this.normalizeStringAccent(a[property]) >
+        this.normalizeStringAccent(b[property])
+        ? -1
+        : 1;
+    } else {
+      return a[property] > b[property] ? -1 : 1;
+    }
+  }
+
+  normalizeStringAccent(name: string): string {
+    return name.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   }
 }
