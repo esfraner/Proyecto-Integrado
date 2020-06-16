@@ -4,11 +4,11 @@ import { ITeams } from "src/models/ITeams";
 import { IPlayer } from "src/models/IPlayer";
 
 @Component({
-  selector: "app-menu-navbar",
-  templateUrl: "./menu-navbar.component.html",
-  styleUrls: ["./menu-navbar.component.css"],
+  selector: "app-menu-teams",
+  templateUrl: "./menu-teams.component.html",
+  styleUrls: ["./menu-teams.component.css"],
 })
-export class MenuNavbarComponent implements OnInit {
+export class MenuTeamsComponent implements OnInit {
   teams: Array<ITeams>;
   @Output() onSelectTeam = new EventEmitter<string>();
   @Output() onSortbyAge = new EventEmitter<string>();
