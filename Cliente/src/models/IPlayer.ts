@@ -7,4 +7,5 @@ export interface IPlayer {
   paisNacimiento: string;
   demarcacion: string;
   foto: string;
+  equipo: string;
 }
