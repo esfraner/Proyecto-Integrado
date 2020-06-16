@@ -1,6 +1,7 @@
 mat-paginator {
   z-index: 1;
 }
+
 app-player-information {
   z-index: 2;
 }
