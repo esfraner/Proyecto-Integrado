@@ -14,7 +14,7 @@ export class MenuTeamsComponent implements OnInit {
   @Output() onSortbyId = new EventEmitter();
   @Output() onKeyUp = new EventEmitter<string>();
   @Output() refreshPlayers = new EventEmitter();
-  @Output() getPlayers = new EventEmitter();
+  @Output() onRefreshPage = new EventEmitter();
 
   constructor() {
     this.teams = TEAMS;
@@ -39,31 +39,17 @@ export class MenuTeamsComponent implements OnInit {
   }
 
   refreshPage() {
-    this.getPlayers.emit();
+    this.onRefreshPage.emit();
   }
 
   searchPlayer(event: any) {
     if (this.isKeyRemove(event.keyCode)) {
       this.refreshPlayers.emit();
     }
-    if (
-      this.isLongerThan2(event.target.value) &&
-      !this.isKeyShift(event.keyCode)
-    ) {
-      this.getPlayers.emit();
-    }
     this.onKeyUp.emit(event.target.value);
   }
 
   isKeyRemove(keyCode: number) {
     return keyCode === 8;
-  }
-
-  isKeyShift(keyCode: number) {
-    return keyCode === 16;
-  }
-
-  isLongerThan2(name: string) {
-    return name.length === 2;
   }
 }

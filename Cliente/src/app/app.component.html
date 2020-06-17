@@ -6,10 +6,10 @@
   [fullScreen]="false"
 ></ngx-spinner>
 <app-menu-teams
-  (refreshPlayers)="refreshPlayerFromLocal()"
-  (getPlayers)="refreshPlayersFromDatabase()"
-  (onKeyUp)="searchPlayer($event)"
+  (refreshPlayers)="refreshPlayers()"
+  (onRefreshPage)="refreshPlayers()"
   (onSelectTeam)="selectTeam($event)"
+  (onKeyUp)="searchPlayer($event)"
   (onSortbyId)="
     isAscendingId = !isAscendingId; sortPlayersByProperty('id', isAscendingId)
   "
@@ -21,11 +21,12 @@
     isAscendingAge = !isAscendingAge;
     sortPlayersByProperty('edad', isAscendingAge)
   "
-></app-menu-teams>
+>
+</app-menu-teams>
 <app-dashboard
-  (onCreatePlayer)="createPlayer($event)"
-  (onUpdatePlayer)="updatePlayer($event)"
-  (onRemovePlayer)="removePlayer($event)"
+  (onKeyUp)="searchPlayer($event)"
+  [sort]="sort"
+  [searchName]="searchName"
   *ngIf="players$ | async as players"
   [players$]="players"
 ></app-dashboard>

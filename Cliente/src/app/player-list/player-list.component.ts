@@ -10,9 +10,7 @@ export class PlayerListComponent implements OnInit {
   selectedPlayer: Player;
 
   @Output() cardClicked = new EventEmitter<Player>();
-
-  @Input()
-  players: Player[];
+  @Input() players: Player[];
 
   constructor() {}
   ngOnInit() {}
