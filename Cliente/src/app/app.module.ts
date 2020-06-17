@@ -34,6 +34,7 @@ import { MatPaginatorModule } from "@angular/material/paginator";
 import { MenuTeamsComponent } from "./menu-teams/menu-teams.component";
 import { PlayerInformationComponent } from "./player-information/player-information.component";
 import { PlayerService } from "../services/player.service";
+import { Base64Service } from "../services/base64.service";
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { NgxSpinnerModule } from "ngx-spinner";
 /* import { SpanishDateProvider } from "src/validators/spanishDateProvider"; */
@@ -67,6 +68,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
   ],
   providers: [
     PlayerService,
+    Base64Service,
     { provide: MAT_DATE_LOCALE, useValue: "es_ES" },
     {
       provide: DateAdapter,

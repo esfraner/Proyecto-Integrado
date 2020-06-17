@@ -3,8 +3,9 @@ import { Player } from "src/models/player";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { FileUploader } from "ng2-file-upload";
 import { PlayerService } from "src/services/player.service";
+import { Base64Service } from "src/services/base64.service";
 import * as moment from "moment";
-import { DateValidator } from "src/validators/validator.date";
+import { CustomValidator } from "src/validators/custom.validator";
 @Component({
   selector: "app-player-information",
   templateUrl: "./player-information.component.html",
@@ -27,9 +28,9 @@ export class PlayerInformationComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private playerService: PlayerService
+    private playerService: PlayerService,
+    private base64Service: Base64Service
   ) {}
-  base64Image = "";
 
   demarcaciones: String[] = [
     "Portero",
@@ -48,17 +49,48 @@ export class PlayerInformationComponent implements OnInit {
     this.showLastIdInForm();
     this.formPlayerInformation = this.formBuilder.group({
       id: [],
-      nombreCompleto: ["", [Validators.required, Validators.minLength(3)]],
+      nombreCompleto: [
+        "",
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(50),
+        ],
+      ],
       edad: ["", [Validators.required, Validators.min(14), Validators.max(70)]],
       fechaNacimiento: [
         "",
-        Validators.compose([Validators.required, DateValidator.dateValidator]),
+        Validators.compose([
+          Validators.required,
+          CustomValidator.dateValidator,
+        ]),
       ],
-      paisNacimiento: ["", [Validators.required]],
-      lugarNacimiento: ["", [Validators.required]],
+      paisNacimiento: [
+        "",
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(50),
+        ],
+      ],
+      lugarNacimiento: [
+        "",
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(50),
+        ],
+      ],
       demarcacion: ["", [Validators.required]],
       foto: ["", [Validators.required]],
-      equipo: ["", [Validators.required]],
+      equipo: [
+        "",
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(50),
+        ],
+      ],
     });
   }
 
@@ -78,33 +110,10 @@ export class PlayerInformationComponent implements OnInit {
     }
   }
 
-  readBase64(file): Promise<any> {
-    var reader = new FileReader();
-    var future = new Promise((resolve, reject) => {
-      reader.addEventListener(
-        "load",
-        function () {
-          resolve(reader.result);
-        },
-        false
-      );
-
-      reader.addEventListener(
-        "error",
-        function (event) {
-          reject(event);
-        },
-        false
-      );
-      reader.readAsDataURL(file);
-    });
-    return future;
-  }
-
-  public onFileSelected(event: EventEmitter<File[]>) {
+  onFileSelected(event: EventEmitter<File[]>) {
     const file: File = event[0];
 
-    this.readBase64(file).then((photo: string) => {
+    this.base64Service.readBase64(file).then((photo: string) => {
       const base64 = photo.split(",")[1];
       this.avatarSrc = "data:image/jpeg;base64," + base64;
       this.formPlayerInformation.controls["foto"].setValue(file ? base64 : "");

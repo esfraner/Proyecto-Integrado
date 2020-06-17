@@ -1,7 +1,7 @@
 import { AbstractControl } from "@angular/forms";
 import * as moment from "moment";
 
-export class DateValidator {
+export class CustomValidator {
   static dateValidator(AbstractControl: AbstractControl) {
     if (
       AbstractControl &&

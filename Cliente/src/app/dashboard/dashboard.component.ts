@@ -1,10 +1,4 @@
-import {
-  Component,
-  Input,
-  Output,
-  EventEmitter,
-  SimpleChanges,
-} from "@angular/core";
+import { Component, Input, SimpleChanges } from "@angular/core";
 import { Player } from "src/models/player";
 import { PageEvent } from "@angular/material/paginator";
 import { FormGroup } from "@angular/forms";
