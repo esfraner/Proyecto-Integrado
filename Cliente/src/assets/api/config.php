@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/oConexion.class.php';
+require_once __DIR__ . '/oConexionPDO.class.php';
 
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST, GET, OPTIONS');

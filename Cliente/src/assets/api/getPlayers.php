@@ -1,21 +1,17 @@
 <?php
 require_once __DIR__ . '/config.php';
 
-$postdata = json_decode(file_get_contents("php://input"));
-$page = $postdata->page;
-$playersPerPage = $postdata->playersPerPage;
+$team=$_GET['teamName'];
 
-$oConexion = new oConexion(HOST, BD, USER, PASS);
-$oConexion->abrir();
+$oConexion = new oConexionPDO(["servidor" => HOST, "baseDatos" => BD, "usuario" => USER, "clave" => PASS]);
 $oConni = $oConexion->obtenerConexion();
-$stmt = $oConni->prepare("SELECT * FROM JUGADORES limit $page,$playersPerPage");
-$stmt->execute();
-$stmt->store_result();
-$stmt->bind_result($id, $name, $birthday, $age, $birthPlace, $birthCountry, $position, $photo);
-while ($stmt->fetch()) {
-  $result[] = ["id" => $id, "nombreCompleto" => $name, "fechaNacimiento" => $birthday, "edad" => $age, "lugarNacimiento" => $birthPlace, "paisNacimiento" => $birthCountry, "demarcacion" => $position, "foto" => $photo];
-}
-echo json_encode($result);
-$stmt->close();
+$query="SELECT ID as id, `Nombre completo` as nombreCompleto,"."
+`Fecha de nacimiento` as fechaNacimiento, Edad as edad, `Lugar de nacimiento` as lugarNacimiento, `País de nacimiento` as paisNacimiento,"."
+Demarcación as demarcacion, Foto as foto, Equipo as equipo FROM PLAYERS WHERE Equipo=?";
 
+$stmt = $oConni->prepare($query);
+$stmt->execute([$team]);
+
+$players = $stmt->fetchAll(PDO::FETCH_ASSOC);
+echo(json_encode($players));
 
