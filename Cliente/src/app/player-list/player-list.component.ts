@@ -1,11 +1,4 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  Output,
-  EventEmitter,
-  SimpleChanges,
-} from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { Player } from "src/models/player";
 @Component({
   selector: "app-player-list",
@@ -24,7 +17,7 @@ export class PlayerListComponent implements OnInit {
   constructor() {}
   ngOnInit() {}
 
-  onClickedPlayerData(player: Player): void {
+  onClickPlayerCard(player: Player): void {
     this.cardClicked.emit(player);
   }
 }

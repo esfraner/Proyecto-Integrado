@@ -31,6 +31,9 @@
   [fullScreen]="false"
 ></ngx-spinner>
 <app-menu-teams
+  (refreshPlayers)="refreshPlayerFromLocal()"
+  (getPlayers)="refreshPlayersFromDatabase()"
+  (onKeyUp)="searchPlayer($event)"
   (onSelectTeam)="selectTeam($event)"
   (onSortbyId)="
     isAscendingId = !isAscendingId; sortPlayersByProperty('id', isAscendingId)
@@ -45,6 +48,9 @@
   "
 ></app-menu-teams>
 <app-dashboard
+  (onCreatePlayer)="createPlayer($event)"
+  (onUpdatePlayer)="updatePlayer($event)"
+  (onRemovePlayer)="removePlayer($event)"
   *ngIf="players$ | async as players"
-  [arrPlayers$]="players"
+  [players$]="players"
 ></app-dashboard>

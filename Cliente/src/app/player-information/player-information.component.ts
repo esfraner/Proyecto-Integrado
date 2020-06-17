@@ -1,19 +1,6 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  EventEmitter,
-  Output,
-  SimpleChanges,
-} from "@angular/core";
+import { Component, OnInit, Input, EventEmitter, Output } from "@angular/core";
 import { Player } from "src/models/player";
-import { IPlayer } from "src/models/IPlayer";
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  FormControl,
-} from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { FileUploader } from "ng2-file-upload";
 import { PlayerService } from "src/services/player.service";
 import * as moment from "moment";
@@ -24,17 +11,15 @@ import { DateValidator } from "src/validators/validator.date";
   styleUrls: ["./player-information.component.css"],
 })
 export class PlayerInformationComponent implements OnInit {
-  @Output() eventUpdatePlayer = new EventEmitter<Player>();
-  @Output() eventRemovePlayer = new EventEmitter<Player>();
-  @Output() eventCreatePlayer = new EventEmitter<Player>();
+  @Output() onUpdatePlayer = new EventEmitter<Player>();
+  @Output() onRemovePlayer = new EventEmitter<Player>();
+  @Output() onCreatePlayer = new EventEmitter<Player>();
   @Output() readyNewPlayer$ = new EventEmitter<boolean>();
-  @Input()
-  optionCreatePlayer: boolean;
-
+  @Input() optionCreatePlayer: boolean;
   formPlayerInformation: FormGroup;
-
   testImage: string;
   avatarSrc: string;
+
   public uploader: FileUploader = new FileUploader({
     url: "localhost:4200",
     disableMultipart: true,
@@ -151,7 +136,7 @@ export class PlayerInformationComponent implements OnInit {
       ),
     });
 
-    this.eventUpdatePlayer.emit(newPlayer);
+    this.onUpdatePlayer.emit(newPlayer);
     this.readyNewPlayer();
   }
 
@@ -165,7 +150,7 @@ export class PlayerInformationComponent implements OnInit {
       ),
     });
 
-    this.eventRemovePlayer.emit(newPlayer);
+    this.onRemovePlayer.emit(newPlayer);
     this.readyNewPlayer();
   }
 
@@ -179,7 +164,7 @@ export class PlayerInformationComponent implements OnInit {
       ),
     });
 
-    this.eventCreatePlayer.emit(newPlayer);
+    this.onCreatePlayer.emit(newPlayer);
     this.readyNewPlayer();
   }
 

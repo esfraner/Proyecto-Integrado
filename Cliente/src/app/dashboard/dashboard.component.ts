@@ -1,7 +1,5 @@
-import { Component, Output, Input } from "@angular/core";
-import { PlayerService } from "src/services/player.service";
+import { Component, Input, Output, EventEmitter } from "@angular/core";
 import { Player } from "src/models/player";
-import { Observable } from "rxjs/internal/Observable";
 import { PageEvent } from "@angular/material/paginator";
 import { FormGroup } from "@angular/forms";
 
@@ -11,19 +9,18 @@ import { FormGroup } from "@angular/forms";
   styleUrls: ["./dashboard.component.css"],
 })
 export class DashboardComponent {
-  constructor(private playerService: PlayerService) {}
-  currentPage: number = 0;
+  constructor() {}
   pageSize: number = 10;
   index: number = 0;
   minIndex: number = 0;
   maxIndex: number = 10;
-  /*   optionCreatePlayer: boolean = true; */
-
   formPlayerInformation: FormGroup;
   selectedPlayer: Player;
 
-  @Input()
-  arrPlayers$: Player[];
+  @Input() players$: Player[];
+  @Output() onUpdatePlayer = new EventEmitter<Player>();
+  @Output() onRemovePlayer = new EventEmitter<Player>();
+  @Output() onCreatePlayer = new EventEmitter<Player>();
 
   ngOnInit(): void {}
 
@@ -37,32 +34,15 @@ export class DashboardComponent {
     this.selectedPlayer = player;
   }
 
-  eventUpdatePlayer(updatedPlayer: Player) {
-    this.playerService.updatePlayer(updatedPlayer).subscribe((_player) => {
-      this.arrPlayers$ = this.arrPlayers$.map((player: Player) => {
-        let resPlayer = player.id === updatedPlayer.id ? updatedPlayer : player;
-        return resPlayer;
-      });
-    });
+  updatePlayer(updatedPlayer: Player) {
+    this.onUpdatePlayer.emit(updatedPlayer);
   }
 
-  eventCreatePlayer(createdPlayer: Player) {
-    this.playerService
-      .createPlayer(createdPlayer)
-      .subscribe((response: boolean) => {
-        if (response) {
-          this.arrPlayers$ = [...this.arrPlayers$, createdPlayer];
-        }
-      });
+  createPlayer(createdPlayer: Player) {
+    this.onCreatePlayer.emit(createdPlayer);
   }
 
-  eventRemovePlayer(player: Player) {
-    this.playerService.removePlayer(player).subscribe((response: boolean) => {
-      if (response) {
-        this.arrPlayers$ = this.arrPlayers$.filter(
-          (_player) => _player.id !== player.id
-        );
-      }
-    });
+  removePlayer(removedPlayer: Player) {
+    this.onRemovePlayer.emit(removedPlayer);
   }
 }

@@ -1,9 +1,8 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Player } from "src/models/player";
-import { Observable, Subject, merge } from "rxjs";
-import { shareReplay, map, combineLatest, filter } from "rxjs/operators";
-import { newArray } from "@angular/compiler/src/util";
+import { Observable } from "rxjs";
+
 @Injectable({
   providedIn: "root",
 })
@@ -13,7 +12,7 @@ export class PlayerService {
 
   getPlayers(team: string): Observable<Player[]> {
     return this.http.get<Player[]>(
-      `${this.URL}getAllPlayers.php?teamName=${team}`
+      `${this.URL}getPlayers.php?teamName=${team}`
     );
   }
 

@@ -6,7 +6,7 @@
   <mat-toolbar-row>
     <div class="col-12">
       <div class="title-container">
-        <h1>LIGA SANTANDER</h1>
+        <h1 (click)="refreshPage()" class="cursor-pointer">LIGA SANTANDER</h1>
       </div>
     </div>
   </mat-toolbar-row>
@@ -19,6 +19,7 @@
             type="text"
             class="col-12 form-control input-search"
             placeholder="Buscar..."
+            (keyup)="searchPlayer($event)"
           />
         </div>
         <div class="col-10 property-buttons">

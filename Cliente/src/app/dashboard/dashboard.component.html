@@ -2,21 +2,21 @@
   <div class="row">
     <app-player-list
       class="col-7"
-      [players]="arrPlayers$.slice(minIndex, maxIndex)"
+      [players]="players$.slice(minIndex, maxIndex)"
       (cardClicked)="getPlayerClicked($event)"
     ></app-player-list>
     <app-player-information
       class="col-5"
       [selectedPlayer]="selectedPlayer"
-      (eventCreatePlayer)="eventCreatePlayer($event)"
-      (eventUpdatePlayer)="eventUpdatePlayer($event)"
-      (eventRemovePlayer)="eventRemovePlayer($event)"
+      (onCreatePlayer)="createPlayer($event)"
+      (onUpdatePlayer)="updatePlayer($event)"
+      (onRemovePlayer)="removePlayer($event)"
     ></app-player-information>
   </div>
 </div>
 <mat-paginator
   class="col-7"
-  [length]="arrPlayers$.length"
+  [length]="players$.length"
   [pageSize]="pageSize"
   [pageIndex]="index"
   [pageSizeOptions]="[5, 10, 25, 50]"

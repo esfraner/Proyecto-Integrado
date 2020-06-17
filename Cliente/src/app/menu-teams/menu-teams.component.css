@@ -43,3 +43,7 @@ img {
 .title-container {
   text-align: center;
 }
+
+.cursor-pointer {
+  cursor: pointer;
+}
