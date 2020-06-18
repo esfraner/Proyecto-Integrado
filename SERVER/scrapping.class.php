@@ -9,18 +9,11 @@ class Scrapping {
 
     public function __construct() {
         $this->oConexion = new oConexionPDO(["servidor" => HOST, "baseDatos" => BD, "usuario" => USER, "clave" => PASS]);
-        //$this->oConexion->abrir();
         $this->oConnPDO = $this->oConexion->obtenerConexion();
 
-        $sql = "INSERT INTO JUGADORES (`Nombre completo`, `Fecha de nacimiento`, Edad, `Lugar de nacimiento`, `País de nacimiento`, Demarcación, Foto) VALUES (?,?,?,?,?,?,?);";
+        $sql = "INSERT INTO PLAYERS (`Nombre completo`, `Fecha de nacimiento`, Edad, `Lugar de nacimiento`, `País de nacimiento`, Demarcación, Foto, Equipo) VALUES (?,?,?,?,?,?,?,?);";
         $this->stmt = $this->oConnPDO->prepare($sql);
     }
-
-    function getURLPrincipalPage() {//No está bien formada, solo cogemos los objetos que generan en un script
-        $baseUrl = "https://www.bdfutbol.com/es/e/elig8.html";
-        $contents = $this->curl($baseUrl);
-        file_put_contents("bdFutbol.html", $contents);
-    }//se puede ver en bdFutbol.js
 
     private function curl($url) {
         $ch = curl_init();
@@ -48,6 +41,7 @@ class Scrapping {
         $playerData = $this->getPlayerInformation($resultHtml);
         $playerImage = $this->getPlayerImage($resultHtml);
         $playerData["Edad"] = $this->calculateAge($playerData["Fecha de nacimiento"]);
+        $playerData["Nombre completo"] = trim($playerData['Nombre completo']);
         $playerData["Foto"] = $playerImage;
 
         return $playerData;
@@ -79,7 +73,7 @@ class Scrapping {
         }
 
         $values[1] = explode(',', $values[1])[0]; //obtenemos la fecha
-        //creamos un array associativo donde los valores del $dataKeys seran las keys ylos valores $datasValues
+        //creamos un array associativo donde los valores del $dataKeys seran las keys y los valores $datasValues
         foreach ($keys as $index => $val) {
             $arrayplayer[$val] = $values[$index];
         }
@@ -100,12 +94,14 @@ class Scrapping {
         $doc->loadHTML(serialize($xmlResult[0]));
         $xpath = new DOMXPath($doc);
         $urlImage = $xpath->query("//div[@id]/img/@src")->item(0);
+        $imgText = $urlImage->nodeValue;
+        $imgFix = explode('../../', $imgText)[1];
 
-        return $urlImage->nodeValue;
+        return base64_encode(file_get_contents("https://www.bdfutbol.com/" . $imgFix));
     }
 
-    public function insertPlayer($player) {
-        $this->stmt->execute([$player['Nombre completo'], $player['Fecha de nacimiento'], $player['Edad'], $player['Lugar de nacimiento'], $player['País de nacimiento'], $player['Demarcación'], $player['Foto']]);
+    public function insertPlayer($player,$teamName) {
+        $this->stmt->execute([$player['Nombre completo'], $player['Fecha de nacimiento'], $player['Edad'], $player['Lugar de nacimiento'], $player['País de nacimiento'], $player['Demarcación'], $player['Foto'],$teamName]);
     }
 
 }

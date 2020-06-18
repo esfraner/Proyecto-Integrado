@@ -1,0 +1,11 @@
+[
+  { "name": "Barcelona",  "id": 1 ,"path": "teamsJSONS/barcelona.json"},
+  { "name": "Real Madrid", "id": 2 ,"path": "teamsJSONS/realMadrid.json"},
+  { "name": "Alavés", "id": 3,"path": "teamsJSONS/alaves.json" },
+  { "name": "Athletic Club", "id": 6,"path": "teamsJSONS/athleticClub.json"},
+  { "name": "Atlético de Madrid", "id": 7,"path": "teamsJSONS/atleticoMadrid.json"},
+  { "name": "Betis", "id": 8,"path": "teamsJSONS/betis.json" },
+  { "name": "Valencia", "id": 33,"path": "teamsJSONS/valencia.json"},
+  { "name": "Sevilla", "id": 36,"path": "teamsJSONS/sevilla.json" },
+  { "name": "Espanyol", "id": 14,"path": "teamsJSONS/espanyol.json" }
+]
